@@ -1,4 +1,4 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router, NavigationCancel } from '@angular/router';
 import { URLSearchParams, } from '@angular/http';
 
@@ -40,7 +40,7 @@ export class AuthService {
         this._client_id = GlobalService.getAuthSettings().CLIENT_ID;
         this._client_id_ro = GlobalService.getAuthSettings().CLIENT_ID_RO;
         this._redirect_uri = GlobalService.getEndPoints().APP;
-        this._response_type = "token";
+        this._response_type = "id_token token";
         this._scope = GlobalService.getAuthSettings().SCOPE;
         this._nameCurrentUser = "CURRENT_USER";
         this._cacheType = GlobalService.getAuthSettings().CACHE_TYPE;
@@ -108,7 +108,8 @@ export class AuthService {
             "redirect_uri=" + encodeURI(this._redirect_uri) + "&" +
             "response_type=" + encodeURI(this._response_type) + "&" +
             "scope=" + encodeURI(this._scope) + "&" +
-            "state=" + encodeURI(state);
+            "state=" + encodeURI(state) + "&" +
+            "nonce=xyz";
 
         window.location.href = url;
         return this._typeLogin;
