@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, Input, SecurityContext, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, SecurityContext, Output, EventEmitter } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AuthService } from '../../common/services/auth.service';
 
@@ -22,9 +22,9 @@ import { AuthService } from '../../common/services/auth.service';
     </div>
     <ul class="gc-menu__list list-unstyled">
       <li *ngFor="let item of vm.menu">
-        <a routerLink="{{item.Value}}">
+        <a routerLink="{{item.Route}}">
           <span class="gc-menu__list__icon {{item.Icon}}"></span>
-          <span class="gc-menu__list__text">{{item.Name}}</span>
+          <span class="gc-menu__list__text"> {{item.Name}}</span>
         </a>
       </li>
     </ul>
