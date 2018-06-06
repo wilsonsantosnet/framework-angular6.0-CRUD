@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 
 import { GlobalService } from '../../global.service';
 import { ViewModel } from '../model/viewmodel';
@@ -6,7 +6,6 @@ import { ViewModel } from '../model/viewmodel';
 @Component({
     selector: 'make-grid',
     template: `
-    
     <div class="gc-table-responsive">
         <table class="{{gridCss}}">
           <thead class="thead-inverse">
@@ -36,16 +35,16 @@ import { ViewModel } from '../model/viewmodel';
                   <i class="fa {{ btn.icon }}"></i>
                 </button>
                 <button (click)="onEdit($event, item)" *ngIf="showEdit" placement="top" title="Editar" class="btn btn-sm btn-primary">
-                  <i class="fa fa-pencil"></i>
+                  <i class="icon icon-pencil"></i>
                 </button>
-                <button (click)="onDetails($event, item)" *ngIf="showDetails" placement="top" title="Detalhes" class="btn btn-sm">
-                  <i class="fa fa-table"></i>
+                <button (click)="onDetails($event, item)" *ngIf="showDetails" placement="top" title="Detalhes" class="btn btn-sm btn-default">
+                  <i class="icon icon-info"></i>
                 </button>
-                <button (click)="onPrint($event, item)" *ngIf="showPrint" placement="top" title="Imprimir" class="btn btn-sm btn-success">
-                  <i class="fa fa-print"></i>
+                <button (click)="onPrint($event, item)" *ngIf="showPrint" placement="top" title="Imprimir" class="btn btn-sm btn-default">
+                  <i class="icon icon-printer"></i>
                 </button>
                 <button (click)="onDeleteConfimation($event, item)" *ngIf="showDelete" placement="top" title="Excluir" class="btn btn-sm btn-danger">
-                  <i class="fa fa-trash-o"></i>
+                  <i class="icon icon-trash"></i>
                 </button>
               </td>
 
@@ -64,10 +63,10 @@ import { ViewModel } from '../model/viewmodel';
                 <button (click)="onEdit($event, item)" *ngIf="showEdit" placement="top" title="Editar" class="btn btn-sm btn-primary">
                   <i class="fa fa-pencil"></i>
                 </button>
-                <button (click)="onDetails($event, item)" *ngIf="showDetails" placement="top" title="Detalhes" class="btn btn-sm">
-                  <i class="fa fa-table"></i>
+                <button (click)="onDetails($event, item)" *ngIf="showDetails" placement="top" title="Detalhes" class="btn btn-sm btn-default">
+                  <i class="fa fa-info"></i>
                 </button>
-                <button (click)="onPrint($event, item)" *ngIf="showPrint" placement="top" title="Imprimir" class="btn btn-sm btn-success">
+                <button (click)="onPrint($event, item)" *ngIf="showPrint" placement="top" title="Imprimir" class="btn btn-sm btn-default">
                   <i class="fa fa-print"></i>
                 </button>
                 <button (click)="onDeleteConfimation($event, item)" *ngIf="showDelete" placement="top" title="Excluir" class="btn btn-sm btn-danger">
@@ -81,8 +80,7 @@ import { ViewModel } from '../model/viewmodel';
 
             </tr>
           </tbody>
-        </table>
-    </div>`
+        </table>`
 })
 export class MakeGridComponent implements OnChanges {
 
@@ -132,7 +130,7 @@ export class MakeGridComponent implements OnChanges {
         this.showCheckbox = false;
         this.showAction = true;
         this.actionLeft = GlobalService.getGlobalSettings().actionLeft;
-        this.gridCss = "table table-bordered table-striped table-app";
+        this.gridCss = "table table-striped table-app";
     }
 
     bindFields(item: any, key: any) {

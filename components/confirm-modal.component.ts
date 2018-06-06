@@ -1,24 +1,28 @@
-﻿import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { GlobalService, NotificationParameters } from '../../global.service';
 
 @Component({
     selector: 'confirm-modal',
     template: `
-              <div bsModal #_confirmModal="bs-modal" class="gc-modal modal fade" >
+              <div bsModal #_confirmModal="bs-modal" class="modal fade" >
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
                       <h3 class="modal-title">Confirmação</h3>
                     </div>
-                    <div class="card">
-                      <h5 class="card-block">
-                        {{ vm.messageConfirmation }}
-                      </h5>
+                    <div class="modal-body">
+                      {{ vm.messageConfirmation }}
                     </div>
                     <div class="modal-footer">
-                      <button class="btn btn-default btn-default-app" type="button" (click)="onCancel()">Cancelar</button>
-                      <button class="btn btn-success btn-success-app" type="button" (click)="onConfimationYes()">Sim</button>
+                      <button class="btn btn-default" type="button" (click)="onCancel()">
+                        <i class="icon-close icons"></i>
+                        Não
+                      </button>
+                      <button class="btn btn-success" type="button" (click)="onConfimationYes()">
+                        <i class="icon-check icons"></i>
+                        Sim
+                      </button>
                     </div>
                   </div>
                 </div>

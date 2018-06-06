@@ -1,4 +1,4 @@
-﻿import { NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -10,11 +10,11 @@ import { TextMaskModule } from 'angular2-text-mask';
 
 import { DataSourceDirective } from './directives/select-datasource.directive';
 import { MaskInputDirective } from './directives/mask-input.directive';
+import { UnMaskDirective } from './directives/unmask.directive';
 import { DateDirective } from './directives/date.directive';
 import { DateTimeDirective } from './directives/date.time.directive';
 import { BindCustomComponent } from './components/bind-custom.component';
 import { MakeGridComponent } from './components/grid.component'
-//import { MakePaginationComponent } from 'app/common/components/pagination.component';
 import { CepComponent } from '../common/components/cep.component';
 import { TreeViewComponent } from '../common/components/tree-view.component';
 import { NestabaleTreeComponent } from '../common/components/nestable-tree.component';
@@ -33,67 +33,69 @@ import { LoadingOnSideComponent } from '../common/components/loading-on-side.com
 import { MakePaginationComponent } from './components/pagination.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        PaginationModule.forRoot(),
-        ModalModule.forRoot(),
-        FormsModule,
-        TextMaskModule,
-        TagInputModule,
-        TabsModule.forRoot()
-    ],
-    declarations: [
-        BindCustomComponent,
-        MakePaginationComponent,
-        DataSourceDirective,
-        MaskInputDirective,
-        DateDirective,
-        DateTimeDirective,
-    	CepDirective,
-        EditorHtmlDiretive,
-        DomElemetAppendDirective,
-        MakeGridComponent,
-        CepComponent,
-        TreeViewComponent,
-        NestabaleTreeComponent,
-        UploadCustomComponent,
-        MultiSelectComponent,
-        MultiSelectFunnelComponent,
-        DateFormatPipe,
-        MaskFormatPipe,
-        TagCustomComponent,
-        CallerDiretive,
-        NestableDirective, 
-        LoadingOnSideComponent,
-    ],
-    providers: [
-    ],
-    exports: [
-        BindCustomComponent,
-        MakePaginationComponent,
-        MakeGridComponent,
-        CepComponent,
-    	CepDirective,
-        TreeViewComponent,
-        NestabaleTreeComponent,
-        UploadCustomComponent,
-        MultiSelectComponent,
-        MultiSelectFunnelComponent,
-        TagCustomComponent,
-        DataSourceDirective,
-        MaskInputDirective,
-        DateDirective,
-        DateTimeDirective,
-        EditorHtmlDiretive,
-        DomElemetAppendDirective,
-        CallerDiretive,
-        NestableDirective,
-        TextMaskModule,
-        TagInputModule,
-        TabsModule,
-        LoadingOnSideComponent
-	]
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    PaginationModule.forRoot(),
+    ModalModule.forRoot(),
+    FormsModule,
+    TextMaskModule,
+    TagInputModule,
+    TabsModule.forRoot(),
+  ],
+  declarations: [
+    BindCustomComponent,
+    MakePaginationComponent,
+    DataSourceDirective,
+    MaskInputDirective,
+    UnMaskDirective,
+    DateDirective,
+    DateTimeDirective,
+    CepDirective,
+    EditorHtmlDiretive,
+    DomElemetAppendDirective,
+    MakeGridComponent,
+    CepComponent,
+    TreeViewComponent,
+    NestabaleTreeComponent,
+    UploadCustomComponent,
+    MultiSelectComponent,
+    MultiSelectFunnelComponent,
+    DateFormatPipe,
+    MaskFormatPipe,
+    TagCustomComponent,
+    CallerDiretive,
+    NestableDirective,
+    LoadingOnSideComponent
+  ],
+  providers: [
+  ],
+  exports: [
+    BindCustomComponent,
+    MakePaginationComponent,
+    MakeGridComponent,
+    CepComponent,
+    CepDirective,
+    TreeViewComponent,
+    NestabaleTreeComponent,
+    UploadCustomComponent,
+    MultiSelectComponent,
+    MultiSelectFunnelComponent,
+    TagCustomComponent,
+    DataSourceDirective,
+    MaskInputDirective,
+    UnMaskDirective,
+    DateDirective,
+    DateTimeDirective,
+    EditorHtmlDiretive,
+    DomElemetAppendDirective,
+    CallerDiretive,
+    NestableDirective,
+    TextMaskModule,
+    TagInputModule,
+    TabsModule,
+    LoadingOnSideComponent
+  ]
 })
 export class CommonSharedModule {
 

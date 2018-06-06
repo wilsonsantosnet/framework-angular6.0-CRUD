@@ -57,7 +57,6 @@ export class SelectCustomComponent implements ControlValueAccessor, OnInit {
   set value(v: any) {
     if (v !== this.model) {
       this.model = v;
-      console.log(this.onChange)
       this.onChange(v);
     }
   }
