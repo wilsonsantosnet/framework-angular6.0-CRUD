@@ -25,12 +25,15 @@ import { MaskFormatPipe } from './pipes/mask.pipe';
 import { EditorHtmlDiretive } from './directives/editor-html.directive';
 import { TagCustomComponent } from '../common/components/tag.component';
 import { DomElemetAppendDirective } from '../common/directives/dom-elemet-apped.directive';
-import { CallerDiretive } from '../common/directives/caller.directive';
 import { NestableDirective } from '../common/directives/nestable.directive';
 import { MultiSelectFunnelComponent } from '../common/components/multiselect-funnel.component';
 import { CepDirective } from "../common/directives/cep.directive";
 import { LoadingOnSideComponent } from '../common/components/loading-on-side.component';
 import { MakePaginationComponent } from './components/pagination.component';
+import { CallerDiretive } from '../common/directives/caller.directive';
+import { DataSourceShowDirective } from '../common/directives/show-datasource.directive';
+
+
 
 @NgModule({
   imports: [
@@ -65,6 +68,7 @@ import { MakePaginationComponent } from './components/pagination.component';
     MaskFormatPipe,
     TagCustomComponent,
     CallerDiretive,
+    DataSourceShowDirective,
     NestableDirective,
     LoadingOnSideComponent
   ],
@@ -90,6 +94,7 @@ import { MakePaginationComponent } from './components/pagination.component';
     EditorHtmlDiretive,
     DomElemetAppendDirective,
     CallerDiretive,
+    DataSourceShowDirective,
     NestableDirective,
     TextMaskModule,
     TagInputModule,
