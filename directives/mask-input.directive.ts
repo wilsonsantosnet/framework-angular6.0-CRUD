@@ -57,7 +57,11 @@ export class MaskInputDirective implements ControlValueAccessor {
     }
 
     aplicarMascara(valor: any) {
-        var pad = this.mask.replace(/\D/g, '').replace(/9/g, '_');
+        
+          if (!this.mask)
+            return;
+
+        var pad = this.mask.toString().replace(/\D/g, '').replace(/9/g, '_');
         var valorMask = valor + pad.substring(0, pad.length - valor.length);
 
         if (valor.length <= pad.length) {
