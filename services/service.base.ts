@@ -109,34 +109,7 @@ export class ServiceBase {
       maskTelefone: ['(', /\d/, /\d/, ')', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/],
       maskHorario: [/\d/, /\d/, ':', /\d/, /\d/],
       cartaoCredito: [/\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/],
-      maskDecimal: decimalMask,
-      maskMoney: (v) => {
-        v = v.replace(/\D/g, '')
-        const arrRegex = [];
-        let y = 0;
-        let milhar = (v.length > 5) ? ((v.length - 2) % 3) : 0;
-        const primeiroMilhar = milhar;
-        arrRegex.push('R');
-        arrRegex.push('$');
-        arrRegex.push(' ');
-        for (let x = 0; x < v.length; x++) {
-          arrRegex.push(/\d/);
-          if (v.length > 2) {
-            if (x === v.length - 3) {
-              arrRegex.push(',');
-            } else if (x < v.length - 3) {
-              y++;
-              if (((milhar > 0 && y >= milhar) ||
-                (milhar === 0 && (x + 1 - primeiroMilhar) % 3 === 0))) {
-                arrRegex.push('.');
-                y = 0;
-                milhar = 0;
-              }
-            }
-          }
-        }
-        return arrRegex;
-      }
+      maskDecimal: decimalMask
 
     }
 

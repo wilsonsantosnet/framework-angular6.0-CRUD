@@ -16,14 +16,10 @@ export class UnMaskDirective {
 
   @HostListener('input') inputChange() {
 
-
+  
     let newValue = this.elementRef.nativeElement.value;
 
-    if (this.patternRemove == "money") {
-      newValue = newValue.replace(".", "");
-      newValue = newValue.replace("R$", "");
-      newValue = newValue.replace(",", ".");
-    } else if (this.patternRemove == "numeric") {
+    if (this.patternRemove == "numeric") {
       newValue = newValue.replace(/\D/g, '')
     }
 
@@ -34,8 +30,6 @@ export class UnMaskDirective {
     });
 
     this.ngModel.viewToModelUpdate(newValue);
-
-    console.log("UnMaskDirective", newValue);
   }
 
 }

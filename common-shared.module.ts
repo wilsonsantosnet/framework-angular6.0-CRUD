@@ -10,6 +10,7 @@ import { TextMaskModule } from 'angular2-text-mask';
 
 import { DataSourceDirective } from './directives/select-datasource.directive';
 import { MaskInputDirective } from './directives/mask-input.directive';
+import { MaskMoneyDirective } from './directives/mask-money.directive';
 import { UnMaskDirective } from './directives/unmask.directive';
 import { DateDirective } from './directives/date.directive';
 import { DateTimeDirective } from './directives/date.time.directive';
@@ -34,7 +35,6 @@ import { CallerDiretive } from '../common/directives/caller.directive';
 import { DataSourceShowDirective } from '../common/directives/show-datasource.directive';
 
 
-
 @NgModule({
   imports: [
     CommonModule,
@@ -44,13 +44,14 @@ import { DataSourceShowDirective } from '../common/directives/show-datasource.di
     FormsModule,
     TextMaskModule,
     TagInputModule,
-    TabsModule.forRoot(),
+    TabsModule.forRoot(), 
   ],
   declarations: [
     BindCustomComponent,
     MakePaginationComponent,
     DataSourceDirective,
     MaskInputDirective,
+    MaskMoneyDirective,
     UnMaskDirective,
     DateDirective,
     DateTimeDirective,
@@ -88,6 +89,7 @@ import { DataSourceShowDirective } from '../common/directives/show-datasource.di
     TagCustomComponent,
     DataSourceDirective,
     MaskInputDirective,
+    MaskMoneyDirective,
     UnMaskDirective,
     DateDirective,
     DateTimeDirective,
