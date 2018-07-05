@@ -115,6 +115,20 @@ export class ServiceBase {
 
   }
 
+  public tagTransformCollectionToShow(config: any) {
+
+    if (!config.model)
+      return null;
+
+    return config.model.map((item: any) => {
+      return {
+        display: item[config.ctrlNameItemDisplay],
+        value: item[config.ctrlNameItem],
+        readonly: config.readOnly
+      }
+    });
+  }
+
   public tagTransformToShow(value: any, readonly: any) {
     var tagItems = value ? value.split(',') : value;
     var tags = [];
@@ -128,6 +142,17 @@ export class ServiceBase {
       }
     }
     return tags;
+  }
+
+  public tagTransformCollectionToSave(config: any) {
+
+    return config.model.map((item: any) => {
+      let itemJson = {};
+      itemJson[config.ctrlNameItem] = 0;
+      itemJson[config.ctrlNameItemDisplay] = item.display
+      return itemJson
+    });
+
   }
 
   public tagTransformToSave(value: any) {
