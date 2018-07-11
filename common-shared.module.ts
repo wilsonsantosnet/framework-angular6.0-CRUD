@@ -24,6 +24,8 @@ import { MultiSelectComponent } from '../common/components/multiselect.component
 import { DateFormatPipe } from './pipes/date-format.pipe';
 import { MaskFormatPipe } from './pipes/mask.pipe';
 import { LoopToPipe } from './pipes/loop-to.pipe';
+import { ContainsPipe } from './pipes/contains.pipe';
+
 import { EditorHtmlDiretive } from './directives/editor-html.directive';
 import { TagCustomComponent } from '../common/components/tag.component';
 import { DomElemetAppendDirective } from '../common/directives/dom-elemet-apped.directive';
@@ -45,7 +47,7 @@ import { DataSourceShowDirective } from '../common/directives/show-datasource.di
     FormsModule,
     TextMaskModule,
     TagInputModule,
-    TabsModule.forRoot(), 
+    TabsModule.forRoot(),
   ],
   declarations: [
     BindCustomComponent,
@@ -69,6 +71,7 @@ import { DataSourceShowDirective } from '../common/directives/show-datasource.di
     DateFormatPipe,
     MaskFormatPipe,
     LoopToPipe,
+    ContainsPipe,
     TagCustomComponent,
     CallerDiretive,
     DataSourceShowDirective,
@@ -106,7 +109,8 @@ import { DataSourceShowDirective } from '../common/directives/show-datasource.di
     LoadingOnSideComponent,
     DateFormatPipe,
     MaskFormatPipe,
-    LoopToPipe
+    LoopToPipe,
+    ContainsPipe
   ]
 })
 export class CommonSharedModule {
