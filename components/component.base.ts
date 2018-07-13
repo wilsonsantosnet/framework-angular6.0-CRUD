@@ -1,48 +1,62 @@
-﻿export class ComponentBase 
-{
-    _showContainerCreate: Boolean;
-    _showContainerEdit: Boolean;
-    _showContainerDetails: Boolean;
-    _showContainerFilters: Boolean;
-    _showContainerImport: Boolean;
+import { Router } from "@angular/router";
 
-    constructor() {
-        this.hideComponents();
-    }
+export class ComponentBase {
+  _showContainerCreate: Boolean;
+  _showContainerEdit: Boolean;
+  _showContainerDetails: Boolean;
+  _showContainerFilters: Boolean;
+  _showContainerImport: Boolean;
+  _navigatioModal: Boolean;
 
-    hideComponents(): void {
-        this._showContainerCreate = false;
-        this._showContainerEdit = false;
-        this._showContainerDetails = false;
-        this._showContainerImport = false;
-    }
+  constructor() {
+    this._navigatioModal = true;
+    this.hideComponents();
+  }
 
-    hideContainerCreate() {
-        this._showContainerCreate = false;
-    }
+  hideComponents(): void {
+    this._showContainerCreate = false;
+    this._showContainerEdit = false;
+    this._showContainerDetails = false;
+    this._showContainerImport = false;
+  }
 
-    hideContainerEdit() {
-        this._showContainerEdit = false;
-    }
+  hideContainerCreate() {
+    this._showContainerCreate = false;
+  }
 
-    showContainerCreate() {
-        this._showContainerCreate = true;
-    }
+  hideContainerEdit() {
+    this._showContainerEdit = false;
+  }
 
-    showContainerEdit() {
-        this._showContainerEdit = true;
-    }
+  showContainerCreate() {
+    this._showContainerCreate = true;
+  }
 
-    showContainerDetails() {
-        this._showContainerDetails = true;
-    }
+  showContainerEdit() {
+    this._showContainerEdit = true;
+  }
 
-    showContainerFilters() {
-        this._showContainerFilters = true;
-    }
+  showContainerDetails() {
+    this._showContainerDetails = true;
+  }
 
-    showContainerImport() {
-        this._showContainerImport = true;
-    }
+  showContainerFilters() {
+    this._showContainerFilters = true;
+  }
+
+  showContainerImport() {
+    this._showContainerImport = true;
+  }
+
+  navigateStrategy(modal: any, router: Router, url: string) {
+    if (this._navigatioModal)
+      modal.show();
+    else
+      router.navigate([url])
+  }
+
+  disableModal() {
+    this._navigatioModal = false;
+  }
 
 }
