@@ -8,9 +8,27 @@ export class ComponentBase {
   _showContainerImport: Boolean;
   _navigatioModal: Boolean;
 
+  _showBtnBack: Boolean;
+  _showBtnFilter: Boolean;
+  _showBtnNew: Boolean;
+  _showBtnEdit: Boolean;
+  _showBtnDetails: Boolean;
+  _showBtnPrint: Boolean;
+  _showBtnDelete: Boolean;
+
   constructor() {
-    this._navigatioModal = true;
+
     this.hideComponents();
+
+    this._navigatioModal = true;
+    this._showBtnBack = true;
+    this._showBtnFilter = true;
+    this._showBtnNew = true;
+    this._showBtnDetails = true;
+    this._showBtnEdit = true;
+    this._showBtnPrint = true;
+    this._showBtnDelete = true;
+
   }
 
   hideComponents(): void {
@@ -53,6 +71,7 @@ export class ComponentBase {
       modal.show();
     else
       router.navigate([url])
+
   }
 
   disableModal() {
