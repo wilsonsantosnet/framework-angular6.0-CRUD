@@ -24,6 +24,7 @@ import { MultiSelectComponent } from '../common/components/multiselect.component
 import { DateFormatPipe } from './pipes/date-format.pipe';
 import { MaskFormatPipe } from './pipes/mask.pipe';
 import { LoopToPipe } from './pipes/loop-to.pipe';
+import { ExistsRequest } from './pipes/exists-request';
 import { ContainsPipe } from './pipes/contains.pipe';
 
 import { EditorHtmlDiretive } from './directives/editor-html.directive';
@@ -71,6 +72,7 @@ import { DataSourceShowDirective } from '../common/directives/show-datasource.di
     DateFormatPipe,
     MaskFormatPipe,
     LoopToPipe,
+    ExistsRequest,
     ContainsPipe,
     TagCustomComponent,
     CallerDiretive,
@@ -110,6 +112,7 @@ import { DataSourceShowDirective } from '../common/directives/show-datasource.di
     DateFormatPipe,
     MaskFormatPipe,
     LoopToPipe,
+    ExistsRequest,
     ContainsPipe
   ]
 })

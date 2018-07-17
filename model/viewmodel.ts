@@ -23,6 +23,7 @@ export class ViewModel<T> {
     this.reletedViewModel = init.reletedViewModel;
     this.gridCheckModel = init.gridCheckModel;
     this.isParent = init.isParent;
+    this.ParentIdField = init.ParentIdField;
   }
 
   mostrarFiltros: boolean;
@@ -43,4 +44,5 @@ export class ViewModel<T> {
   reletedViewModel: any;
   gridCheckModel: any;
   isParent: Boolean;
+  ParentIdField: string;
 }

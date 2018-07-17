@@ -1,7 +1,7 @@
 
 import { throwError as observableThrowError, Observable, Observer } from 'rxjs';
 
-import { finalize, map, filter, catchError, mergeMap } from 'rxjs/operators';
+import { finalize, map, filter, catchError, mergeMap, retry } from 'rxjs/operators';
 import { Http, RequestOptions, Response, Headers, URLSearchParams, ResponseContentType } from '@angular/http';
 import { Router } from '@angular/router';
 import { Inject, Injectable, OnInit } from '@angular/core';
@@ -308,8 +308,9 @@ export class ApiService<T> {
     return this;
   }
 
-  public enableLoading(enable: boolean) {
+  public enableLoading(enable: boolean): ApiService<T> {
     this._enableLoading = enable;
+    return this;
   }
 
   public setResource(resource: string, endpoint?: string): ApiService<T> {

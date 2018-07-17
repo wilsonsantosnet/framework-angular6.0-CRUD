@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+//*ngFor="let item of 1 | loopTo:7
 @Pipe({
     name: 'loopTo',
 })
