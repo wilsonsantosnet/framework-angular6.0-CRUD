@@ -26,6 +26,7 @@ import { MaskFormatPipe } from './pipes/mask.pipe';
 import { LoopToPipe } from './pipes/loop-to.pipe';
 import { ExistsRequest } from './pipes/exists-request';
 import { ContainsPipe } from './pipes/contains.pipe';
+import { TraductionPipe } from './pipes/traduction.pipe';
 
 import { EditorHtmlDiretive } from './directives/editor-html.directive';
 import { TagCustomComponent } from '../common/components/tag.component';
@@ -74,6 +75,7 @@ import { DataSourceShowDirective } from '../common/directives/show-datasource.di
     LoopToPipe,
     ExistsRequest,
     ContainsPipe,
+    TraductionPipe,
     TagCustomComponent,
     CallerDiretive,
     DataSourceShowDirective,
@@ -113,7 +115,8 @@ import { DataSourceShowDirective } from '../common/directives/show-datasource.di
     MaskFormatPipe,
     LoopToPipe,
     ExistsRequest,
-    ContainsPipe
+    ContainsPipe,
+    TraductionPipe
   ]
 })
 export class CommonSharedModule {
