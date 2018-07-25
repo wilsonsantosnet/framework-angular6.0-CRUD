@@ -1,4 +1,6 @@
 import { Router } from "@angular/router";
+import { ViewModel } from "../model/viewmodel";
+import { retry } from "rxjs/operators";
 
 export class ComponentBase {
   _showContainerCreate: Boolean;
@@ -6,8 +8,7 @@ export class ComponentBase {
   _showContainerDetails: Boolean;
   _showContainerFilters: Boolean;
   _showContainerImport: Boolean;
-  _navigatioModal: Boolean;
-
+  
   _showBtnBack: Boolean;
   _showBtnFilter: Boolean;
   _showBtnNew: Boolean;
@@ -20,7 +21,6 @@ export class ComponentBase {
 
     this.hideComponents();
 
-    this._navigatioModal = true;
     this._showBtnBack = true;
     this._showBtnFilter = true;
     this._showBtnNew = true;
@@ -66,16 +66,11 @@ export class ComponentBase {
     this._showContainerImport = true;
   }
 
-  navigateStrategy(modal: any, router: Router, url: string) {
-    if (this._navigatioModal)
+  navigateStrategy(vm: any, modal: any, router: Router, url: string) {
+    if (vm.navigationModal)
       modal.show();
     else
       router.navigate([url])
-
-  }
-
-  disableModal() {
-    this._navigatioModal = false;
   }
 
 }

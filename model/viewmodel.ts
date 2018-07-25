@@ -3,10 +3,11 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class ViewModel<T> {
 
 
-  constructor(init: any) {
+  constructor(init: any = null) {
 
     this.mostrarFiltros = init.mostrarFiltros;
     this.manterTelaAberta = init.manterTelaAberta;
+    this.navigationModal = init.navigationModal;
     this.actionTitle = init.actionTitle;
     this.actionDescription = init.actionDescription;
     this.downloadUri = init.downloadUri;
@@ -28,6 +29,7 @@ export class ViewModel<T> {
 
   mostrarFiltros: boolean;
   manterTelaAberta: boolean;
+  navigationModal: boolean;
   actionTitle: string;
   actionDescription: string;
   downloadUri: string;
