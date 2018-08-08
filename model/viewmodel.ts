@@ -5,6 +5,7 @@ export class ViewModel<T> {
 
   constructor(init: any = null) {
 
+    this.key = init.key;
     this.mostrarFiltros = init.mostrarFiltros;
     this.manterTelaAberta = init.manterTelaAberta;
     this.navigationModal = init.navigationModal;
@@ -27,6 +28,7 @@ export class ViewModel<T> {
     this.ParentIdField = init.ParentIdField;
   }
 
+  key: string;
   mostrarFiltros: boolean;
   manterTelaAberta: boolean;
   navigationModal: boolean;

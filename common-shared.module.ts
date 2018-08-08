@@ -24,7 +24,7 @@ import { MultiSelectComponent } from '../common/components/multiselect.component
 import { DateFormatPipe } from './pipes/date-format.pipe';
 import { MaskFormatPipe } from './pipes/mask.pipe';
 import { LoopToPipe } from './pipes/loop-to.pipe';
-import { ExistsRequest } from './pipes/exists-request';
+import { ExistsRequestPipe } from './pipes/exists-request.pipe';
 import { ContainsPipe } from './pipes/contains.pipe';
 import { TraductionPipe } from './pipes/traduction.pipe';
 
@@ -38,6 +38,7 @@ import { LoadingOnSideComponent } from '../common/components/loading-on-side.com
 import { MakePaginationComponent } from './components/pagination.component';
 import { CallerDiretive } from '../common/directives/caller.directive';
 import { DataSourceShowDirective } from '../common/directives/show-datasource.directive';
+import { isAuthPipe } from './pipes/is-auth.pipe';
 
 
 @NgModule({
@@ -73,9 +74,10 @@ import { DataSourceShowDirective } from '../common/directives/show-datasource.di
     DateFormatPipe,
     MaskFormatPipe,
     LoopToPipe,
-    ExistsRequest,
+    ExistsRequestPipe,
     ContainsPipe,
     TraductionPipe,
+    isAuthPipe,
     TagCustomComponent,
     CallerDiretive,
     DataSourceShowDirective,
@@ -114,9 +116,10 @@ import { DataSourceShowDirective } from '../common/directives/show-datasource.di
     DateFormatPipe,
     MaskFormatPipe,
     LoopToPipe,
-    ExistsRequest,
+    ExistsRequestPipe,
     ContainsPipe,
-    TraductionPipe
+    TraductionPipe,
+    isAuthPipe
   ]
 })
 export class CommonSharedModule {
