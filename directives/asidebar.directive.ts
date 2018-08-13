@@ -12,6 +12,7 @@ export class AsidebarToggleDirective {
   toggleOpen($event: any) {
     $event.preventDefault();
     document.querySelector('body').classList.toggle('aside-menu-lg-show');
+    console.log("AsidebarToggleDirective");
   }
 }
 

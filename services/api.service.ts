@@ -254,7 +254,7 @@ export class ApiService<T> {
 
   }
 
-  public getUrlConfig(more: boolean, filterFieldName?: string, filterBehavior?: string, filters?: any, processResultsCustom?: any, labelInitial? : any) {
+  public getUrlConfig(more: boolean, filterFieldName?: string, filterBehavior?: string, filters?: any, processResultsCustom?: any, labelInitial?: any) {
 
     var urlMore = this.makeUrlMore();
     var urlMethod = this.makeGetCustomMethodBaseUrl(filterBehavior);
@@ -293,8 +293,36 @@ export class ApiService<T> {
         var filterComposite = Object.assign(filters || {}, {
           filterBehavior: filterBehavior,
         });
-        filterComposite[filterFieldName] = params.term
-        return filterComposite;
+
+        filterComposite[filterFieldName] = params.term;
+
+        return toQueryString(filterComposite);
+
+        function toQueryString(filters) {
+
+          if (filters != null) {
+            var queryString = "";
+
+            for (const key in filters) {
+              if (key.toLowerCase().startsWith("collection")) {
+                if (filters[key]) {
+                  let values = filters[key].toString().split(",");
+                  var params = "";
+                  for (let value in values) {
+                    if (values[value])
+                      queryString += key + "=" + values[value] + "&";
+                  }
+                }
+              }
+              else {
+                if (filters[key])
+                  queryString += key + "=" + filters[key] + "&";
+              }
+            }
+          }
+
+        }
+
       },
       processResults: processResultsDefault
 
@@ -485,8 +513,9 @@ export class ApiService<T> {
 
   private errorResult(response: Response): Observable<T> {
 
-    if (response.status == 401 || response.status == 403)
+    if (response.status == 401 || response.status == 403 || response.status == 0) {
       this.router.navigate(["/login"]);
+    }
 
     let _response = response.json();
     let erros = "ocorreu um erro!";

@@ -13,6 +13,7 @@ export class SidebarToggleDirective {
     $event.preventDefault();
     document.querySelector('body').classList.toggle('sidebar-lg-show');
     document.querySelector('body').classList.toggle('sidebar-show');
+    console.log("SidebarToggleDirective");
   }
 }
 
