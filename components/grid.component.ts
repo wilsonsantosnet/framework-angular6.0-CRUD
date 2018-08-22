@@ -6,14 +6,14 @@ import { ViewModel } from '../model/viewmodel';
 @Component({
   selector: 'make-grid',
   template: `
-    <div class="gc-table-responsive">
+    <div class="gc-table-responsive pre-scrollable">
         <table class="{{gridCss}}">
           <thead class="thead-inverse">
             <tr>
 
               <th width="1" class="text-center" *ngIf="showAction  && actionLeft">Ações</th>
 
-              <th *ngFor="let grid of vm.grid">
+              <th *ngFor="let grid of vm.grid" class="text-nowrap">
                 <span class="table-sort">
                   {{ grid.info.label }}
                   <a *ngIf="showOrderBy" href='#' (click)='onOrderBy($event,grid.key)'><i class="fa fa-sort" aria-hidden="true"></i></a>
