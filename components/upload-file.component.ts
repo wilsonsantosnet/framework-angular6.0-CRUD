@@ -64,7 +64,7 @@ export class UploadCustomComponent implements OnInit, OnDestroy {
     this.downloadUri = GlobalService.getEndPoints().DOWNLOAD;
     this.fileUri = this.downloadUri + this.folder + "/" + this.fileName;
     this.enabledUploadExternal = false;
-    this.accept = "image/*";
+    this.accept = "*.*";
     this.rename = true;
     this.pasteArea = false;
     this.isImage = false;
