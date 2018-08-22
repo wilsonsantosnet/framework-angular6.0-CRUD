@@ -176,9 +176,9 @@ export class UploadCustomComponent implements OnInit, OnDestroy {
 
   verifyFileName(fileName: string) {
     this.isImage = false;
-    if (fileName.endWith("png")) this.isImage = true;
-    if (fileName.endWith("jpg")) this.isImage = true;
-    if (fileName.endWith("gif")) this.isImage = true;
+    if (fileName.endsWith("png")) this.isImage = true;
+    if (fileName.endsWith("jpg")) this.isImage = true;
+    if (fileName.endsWith("gif")) this.isImage = true;
   }
 
   uploadDefault(file: File, rename: boolean) {
