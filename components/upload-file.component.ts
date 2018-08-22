@@ -104,7 +104,8 @@ export class UploadCustomComponent implements OnInit, OnDestroy {
 
   edit() {
     this.fileNameOld = this.vm.model[this.ctrlName];
-    this.fileName = this.vm.model[this.ctrlName]
+    this.fileName = this.vm.model[this.ctrlName];
+    this.verifyFileName(this.fileName)
   }
 
   copyToClipboard(file: any) {
@@ -171,7 +172,13 @@ export class UploadCustomComponent implements OnInit, OnDestroy {
     if (file.type == "image/png") this.isImage = true;
     if (file.type == "image/jpeg") this.isImage = true;
     if (file.type == "image/gif") this.isImage = true;
-    console.log("verifyFileType", file.type, this.isImage);
+  }
+
+  verifyFileName(fileName: string) {
+    this.isImage = false;
+    if (fileName.endWith("png")) this.isImage = true;
+    if (fileName.endWith("jpg")) this.isImage = true;
+    if (fileName.endWith("gif")) this.isImage = true;
   }
 
   uploadDefault(file: File, rename: boolean) {
