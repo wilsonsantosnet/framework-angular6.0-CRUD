@@ -28,7 +28,7 @@ import { ViewModel } from '../model/viewmodel';
           <hr *ngIf='fileName && enableCopyLink'>
           <img *ngIf='fileName && isImage' src='{{downloadUri}}{{folder}}/{{fileName}}' style='max-width:100%'  />
           <hr *ngIf='fileName && isImage'>
-          <div *ngIf='pasteArea' class='upload-component-paste-area upload-component-drop-area mt-2' id='upload-component-paste-area'>
+          <div ng-show='pasteArea' class='upload-component-paste-area upload-component-drop-area mt-2' id='upload-component-paste-area'>
           <p class='muted'>{{pasteAreaText}}<p>
           </div>
       </section>
@@ -94,10 +94,11 @@ export class UploadCustomComponent implements OnInit, OnDestroy {
     if (this.pasteArea) {
 
       let area = document.getElementById("upload-component-paste-area");
+      
       area.addEventListener("paste", (e) => this.handlePaste(e));
-
       area.ondragover = function () { this.className = 'upload-component-paste-area'; return false; };
       area.ondrop = (e) => { this.handleDrop(e) }
+      
     }
 
   }
@@ -175,10 +176,12 @@ export class UploadCustomComponent implements OnInit, OnDestroy {
   }
 
   verifyFileName(fileName: string) {
-    this.isImage = false;
-    if (fileName.endsWith("png")) this.isImage = true;
-    if (fileName.endsWith("jpg")) this.isImage = true;
-    if (fileName.endsWith("gif")) this.isImage = true;
+    if (fileName) {
+      this.isImage = false;
+      if (fileName.endsWith("png")) this.isImage = true;
+      if (fileName.endsWith("jpg")) this.isImage = true;
+      if (fileName.endsWith("gif")) this.isImage = true;
+    }
   }
 
   uploadDefault(file: File, rename: boolean) {
