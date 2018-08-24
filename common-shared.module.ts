@@ -39,7 +39,7 @@ import { MakePaginationComponent } from './components/pagination.component';
 import { CallerDiretive } from '../common/directives/caller.directive';
 import { DataSourceShowDirective } from '../common/directives/show-datasource.directive';
 import { isAuthPipe } from './pipes/is-auth.pipe';
-
+import { CpfCnpjComponent } from './components/cpf-cnpj.component';
 
 @NgModule({
   imports: [
@@ -54,6 +54,7 @@ import { isAuthPipe } from './pipes/is-auth.pipe';
   ],
   declarations: [
     BindCustomComponent,
+    CpfCnpjComponent,
     MakePaginationComponent,
     DataSourceDirective,
     MaskInputDirective,
@@ -89,6 +90,7 @@ import { isAuthPipe } from './pipes/is-auth.pipe';
   exports: [
     BindCustomComponent,
     MakePaginationComponent,
+    CpfCnpjComponent,
     MakeGridComponent,
     CepComponent,
     CepDirective,
