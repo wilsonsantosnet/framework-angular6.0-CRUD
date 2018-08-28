@@ -16,13 +16,25 @@ export class GlobalValidator {
     return null;
   }
 
+  static cpfCnpjIsValid(control: any): ValidationResult {
+
+    var value = control.value || "";
+    var valueTratato = value.replace(/[^\d]+/g, '')
+
+    if (valueTratato.length == 11)
+      return GlobalValidator.cpfIsValid(control);
+    else (valueTratato.length == 14)
+      return GlobalValidator.cnpjIsValid(control);
+
+  }
+
   static cpfIsValid(control: any): ValidationResult {
     
     var soma : number = 0;
     var resto: number;
 
     var cpf = control.value || "";
-    var cpfTratado = cpf.replace(".", "").replace(".", "").replace("-", "");
+    var cpfTratado = cpf.replace(/[^\d]+/g, '');
     var error = { "incorrectCPF": true };
     if (cpfTratado == "")
       return error;
@@ -54,8 +66,6 @@ export class GlobalValidator {
     if (cnpj.length != 14)
       return error;
 
-
-    console.log(cnpj);
 
     // Elimina CNPJs invalidos conhecidos
     if (cnpj == "00000000000000" ||
