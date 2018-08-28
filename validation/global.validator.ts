@@ -19,36 +19,46 @@ export class GlobalValidator {
   static cpfCnpjIsValid(control: any): ValidationResult {
 
     var value = control.value || "";
-    var valueTratato = value.replace(/[^\d]+/g, '')
 
-    if (valueTratato.length == 11)
+    if (value.length == 14)
       return GlobalValidator.cpfIsValid(control);
-    else (valueTratato.length == 14)
+    else (value.length == 18)
       return GlobalValidator.cnpjIsValid(control);
 
   }
 
   static cpfIsValid(control: any): ValidationResult {
-    
     var soma : number = 0;
     var resto: number;
+    var error = { "incorrectCPF": true };
 
     var cpf = control.value || "";
-    var cpfTratado = cpf.replace(/[^\d]+/g, '');
-    var error = { "incorrectCPF": true };
-    if (cpfTratado == "")
+    cpf = cpf.replace(/[^\d]+/g, '');
+    if (cpf.length != 11)
       return error;
 
-    if (cpfTratado == "00000000000") return error;
-    for (let i = 1; i <= 9; i++) soma = soma + parseInt(cpfTratado.substring(i - 1, i)) * (11 - i);
+    if (cpf == "00000000000" ||
+    cpf == "11111111111" ||
+    cpf == "22222222222" ||
+    cpf == "33333333333" ||
+    cpf == "44444444444" ||
+    cpf == "55555555555" ||
+    cpf == "66666666666" ||
+    cpf == "77777777777" ||
+    cpf == "88888888888" ||
+    cpf == "99999999999")
+      return error;
+  
+  
+    for (let i = 1; i <= 9; i++) soma = soma + parseInt(cpf.substring(i - 1, i)) * (11 - i);
     resto = (soma * 10) % 11;
     if ((resto == 10) || (resto == 11)) resto = 0;
-    if (resto != cpfTratado.substring(9, 10)) return error;
+    if (resto != cpf.substring(9, 10)) return error;
     soma = 0;
-    for (let i = 1; i <= 10; i++) soma = soma + parseInt(cpfTratado.substring(i - 1, i)) * (12 - i);
+    for (let i = 1; i <= 10; i++) soma = soma + parseInt(cpf.substring(i - 1, i)) * (12 - i);
     resto = (soma * 10) % 11;
     if ((resto == 10) || (resto == 11)) resto = 0;
-    if (resto != parseInt(cpfTratado.substring(10, 11))) return error;
+    if (resto != parseInt(cpf.substring(10, 11))) return error;
 
     return null;
   
@@ -60,9 +70,7 @@ export class GlobalValidator {
     var error = { "incorrectCNPJ": true };
 
     cnpj = cnpj.replace(/[^\d]+/g, '');
-
     if (cnpj == '') return error;
-
     if (cnpj.length != 14)
       return error;
 
