@@ -190,7 +190,7 @@ export class AuthService {
         if (currentUser.isAuth)
             callback(currentUser, false);
         else {
-            this.api.setResource('CurrentUser').get().subscribe(data => {
+            this.api.setResource('CurrentUser').enableNotification(false).get().subscribe(data => {
                 CacheService.add(this._nameCurrentUser, JSON.stringify(data.data), this._cacheType);
                 callback(this.currentUser(), true);
             }, err => {
@@ -208,7 +208,7 @@ export class AuthService {
     }
     
     public IsAuthApiVerify() {
-        return this.api.setResource('CurrentUser/isAuth').get();
+        return this.api.setResource('CurrentUser/isAuth').enableNotification(false).get();
     }
 
     public isAuthenticated(): boolean {
