@@ -429,6 +429,10 @@ export class ApiService<T> {
 
   private HeaderAuth() {
 
+    var TOKEN_AUTH = CacheService.get('TOKEN_AUTH', this._cacheType);
+    if (!TOKEN_AUTH)
+      return {};
+    
     if (this._enabledOldBack) {
       return {
         'TOKEN_AUTH': CacheService.get('TOKEN_AUTH', this._cacheType)
