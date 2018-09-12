@@ -1,12 +1,9 @@
-
 import { throwError as observableThrowError, Observable, Observer } from 'rxjs';
-
 import { finalize, map, filter, catchError, mergeMap, retry } from 'rxjs/operators';
 import { Http, RequestOptions, Response, Headers, URLSearchParams, ResponseContentType } from '@angular/http';
 import { Router } from '@angular/router';
 import { Inject, Injectable, OnInit } from '@angular/core';
 import { QueryEncoder } from '@angular/http';
-
 import { ECacheType } from '../type-cache.enum';
 import { GlobalService, OperationRequest } from '../../global.service';
 import { CacheService } from '../services/cache.service';
@@ -36,27 +33,16 @@ export class ApiService<T> {
     return this.getBase(this.makeBaseUrl(), filters);
   }
 
+
+
   public uploadCustom(formData: FormData, folder: string, url?: string): Observable<any> {
 
     let _url = url || this.makeBaseUrl();
     let _count = 0;
 
     this.loading(this.getResource(), true, _count);
+    return this.processResponse(this.http.post(_url, formData, this.requestOptions(false)), _count, true);
 
-    return this.http.post(_url,
-      formData,
-      this.requestOptions(false)).pipe(
-        map(res => {
-          _count = this.countReponse(res);
-          this.notification(res);
-          return this.successResult(res);
-        }),
-        catchError(error => {
-          return this.errorResult(error);
-        }),
-        finalize(() => {
-          this.loading(this.getResource(), false, _count);
-        }), );
   }
 
   public upload(file: File, folder: string, rename: boolean): Observable<T> {
@@ -76,20 +62,7 @@ export class ApiService<T> {
     let url = this.makeUrlDeleteUpload(folder, fileName);
     let _count = 0;
     this.loading(this.getResource(), true, _count);
-
-    return this.http.delete(url,
-      this.requestOptions()).pipe(
-        map(res => {
-          _count = this.countReponse(res);
-          this.notification(res);
-          return this.successResult(res);
-        }),
-        catchError(error => {
-          return this.errorResult(error);
-        }),
-        finalize(() => {
-          this.loading(this.getResource(), false, _count);
-        }), );
+    return this.processResponse(this.http.delete(url, this.requestOptions()), _count, true);
   }
 
   public post(data: any, messageCustom?: any): Observable<any> {
@@ -101,20 +74,7 @@ export class ApiService<T> {
     var json = JSON.stringify(data, (key, value) => {
       if (value !== null) return value
     });
-    return this.http.post(url,
-      json,
-      this.requestOptions()).pipe(
-        map(res => {
-          _count = this.countReponse(res);
-          this.notification(res, messageCustom);
-          return this.successResult(res);
-        }),
-        catchError(error => {
-          return this.errorResult(error);
-        }),
-        finalize(() => {
-          this.loading(this.getResource(), false, _count);
-        }), );
+    return this.processResponse(this.http.post(url, json, this.requestOptions()), _count, true);
   }
 
   public postMany(data: any, messageCustom?: any): Observable<any> {
@@ -126,20 +86,8 @@ export class ApiService<T> {
     var json = JSON.stringify(data, (key, value) => {
       if (value !== null) return value
     });
-    return this.http.post(url,
-      json,
-      this.requestOptions()).pipe(
-        map(res => {
-          _count = this.countReponse(res);
-          this.notification(res, messageCustom);
-          return this.successResult(res);
-        }),
-        catchError(error => {
-          return this.errorResult(error);
-        }),
-        finalize(() => {
-          this.loading(url, false, _count);
-        }), );
+
+    return this.processResponse(this.http.post(url, json, this.requestOptions()), _count, true);
   }
 
   public delete(data: any): Observable<any> {
@@ -155,18 +103,7 @@ export class ApiService<T> {
       search: this.makeSearchParams(data)
     }));
 
-    return this.http.delete(url, ro).pipe(
-      map(res => {
-        _count = this.countReponse(res);
-        this.notification(res);
-        return this.successResult(res);
-      }),
-      catchError(error => {
-        return this.errorResult(error);
-      }),
-      finalize(() => {
-        this.loading(url, false, _count);
-      }), );
+    return this.processResponse(this.http.delete(url, ro), _count, true);
   }
 
   public put(data: any): Observable<any> {
@@ -178,20 +115,7 @@ export class ApiService<T> {
     var json = JSON.stringify(data, (key, value) => {
       if (value !== null) return value
     });
-    return this.http.put(url,
-      json,
-      this.requestOptions()).pipe(
-        map(res => {
-          _count = this.countReponse(res);
-          this.notification(res);
-          return this.successResult(res);
-        }),
-        catchError(error => {
-          return this.errorResult(error);
-        }),
-        finalize(() => {
-          this.loading(url, false, _count);
-        }), );
+    return this.processResponse(this.http.put(url, json, this.requestOptions()), _count, true);
   }
 
   public export(filters?: any): Observable<any> {
@@ -203,30 +127,12 @@ export class ApiService<T> {
     let _count = 0;
     this.loading(this.getResource(), true, _count);
 
-    return this.http.get(url,
-      this.requestOptionsBlob().merge(new RequestOptions({
-        search: this.makeSearchParams(filters)
-      }))).pipe(
-        map(res => {
-          _count = this.countReponse(res);
-          return res;
-        }),
-        catchError(error => {
-          return this.errorResult(error);
-        }),
-        finalize(() => {
-          this.loading(this.getResource(), false, _count);
-        }));
+    return this.processResponse(this.http.get(url, this.requestOptionsBlob().merge(new RequestOptions({ search: this.makeSearchParams(filters) }))), _count, true);
   }
 
-  public getDataitem(filters?: any): Observable<T> {
-
+  public getDataitem(filters?: any): Observable<any> {
     this._enableLoading = false;
-    let result = this.getMethodCustom('GetDataItem', filters).pipe(map(res => {
-      this._enableLoading = true
-      return res;
-    }));
-    return result;
+    return this.processResponseDataItem(this.getMethodCustom('GetDataItem', filters));
   }
 
   public getDataListCustom(filters?: any): Observable<T> {
@@ -246,12 +152,7 @@ export class ApiService<T> {
   }
 
   public getFile(file: string): Observable<T> {
-
-    return this.http.get(file).pipe(
-      map((res: Response) => {
-        return res.json()
-      }))
-
+    return this.processResponseFile(this.http.get(file));
   }
 
   public getUrlConfig(more: boolean, filterFieldName?: string, filterBehavior?: string, filters?: any, processResultsCustom?: any, labelInitial?: any) {
@@ -295,7 +196,7 @@ export class ApiService<T> {
         var filterComposite = Object.assign(filterNew || {}, {
           filterBehavior: filterBehavior,
         });
-        
+
         filterComposite["ids"] = null;
         filterComposite[filterFieldName] = params.term
 
@@ -382,25 +283,7 @@ export class ApiService<T> {
     }
     let _count = 0;
     this.loading(this.getResource(), true, _count);
-
-    return this.http.get(url,
-      this.requestOptions().merge(new RequestOptions({
-        search: this.makeSearchParams(filters)
-      }))).pipe(
-        map(res => {
-          _count = this.countReponse(res);
-          return this.successResult(res);
-
-        }),
-        catchError(error => {
-          return this.errorResult(error);
-
-
-        }),
-        finalize(() => {
-          this.loading(this.getResource(), false, _count);
-        }
-        ));
+    return this.processResponse(this.http.get(url, this.requestOptions().merge(new RequestOptions({ search: this.makeSearchParams(filters) }))), _count, false);
 
   }
 
@@ -433,7 +316,7 @@ export class ApiService<T> {
     var TOKEN_AUTH = CacheService.get('TOKEN_AUTH', this._cacheType);
     if (!TOKEN_AUTH)
       return {};
-    
+
     if (this._enabledOldBack) {
       return {
         'TOKEN_AUTH': CacheService.get('TOKEN_AUTH', this._cacheType)
@@ -542,8 +425,8 @@ export class ApiService<T> {
       }
     )
 
+    this.riseThrow(erros);
 
-    return observableThrowError(erros);
   }
 
   private notification(response: any, messageCustom: any = null) {
@@ -603,6 +486,43 @@ export class ApiService<T> {
   private countReponse(res: any) {
     return res.json().dataList ? res.json().dataList.length : res.json().data ? 1 : 0;
   }
+
+ 
+  private processResponse(response: Observable<Response>, _count: number, notification: boolean): Observable<any> {
+    return response.pipe(
+      map(res => {
+        _count = this.countReponse(res);
+
+        if (notification)
+          this.notification(res);
+
+        return this.successResult(res);
+      }),
+      catchError(error => {
+        return this.errorResult(error);
+      }),
+      finalize(() => {
+        this.loading(this.getResource(), false, _count);
+      }));
+  }
+
+  private processResponseDataItem(response: Observable<T>): Observable<T> {
+    return response.pipe(map(res => {
+      this._enableLoading = true
+      return res;
+    }));
+  }
+
+  private processResponseFile(response: Observable<Response>): Observable<T> {
+    return response.pipe(map(res => {
+      return res.json();
+    }));
+  }
+
+  private riseThrow(erros: any) {
+    return Observable.throw(erros);
+  }
+
 }
 
 export class CustomQueryEncoder extends QueryEncoder {
