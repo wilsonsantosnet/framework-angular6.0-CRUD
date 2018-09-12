@@ -260,6 +260,8 @@ export class ApiService<T> {
     var urlMethod = this.makeGetCustomMethodBaseUrl(filterBehavior);
     var authConfig = this.defaultHeaders();
     var url = this._enabledOldBack ? urlMethod : urlMore;
+    var filterNew = filters;
+
     var processResultsDefault = function (result: any) {
       let dataList = result.dataList.map((item: any) => {
         let data = {
@@ -290,11 +292,10 @@ export class ApiService<T> {
       headers: authConfig,
       data: function (params: any) {
 
-        var filterComposite = Object.assign(filters || {}, {
+        var filterComposite = Object.assign(filterNew || {}, {
           filterBehavior: filterBehavior,
         });
-
-        filterComposite[filterFieldName] = params.term;
+        filterComposite[filterFieldName] = params.term
 
         return toQueryString(filterComposite);
 
@@ -320,16 +321,14 @@ export class ApiService<T> {
               }
             }
           }
+          return queryString;
 
         }
-
       },
       processResults: processResultsDefault
 
     };
   }
-
-
 
   public enableNotification(enable: boolean): ApiService<T> {
     this._enableNotifification = enable;
