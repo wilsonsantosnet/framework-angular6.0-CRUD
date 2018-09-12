@@ -295,6 +295,8 @@ export class ApiService<T> {
         var filterComposite = Object.assign(filterNew || {}, {
           filterBehavior: filterBehavior,
         });
+        
+        filterComposite["ids"] = null;
         filterComposite[filterFieldName] = params.term
 
         return toQueryString(filterComposite);
