@@ -425,7 +425,7 @@ export class ApiService<T> {
       }
     )
 
-    this.riseThrow(erros);
+    return this.riseThrow(erros);
 
   }
 
