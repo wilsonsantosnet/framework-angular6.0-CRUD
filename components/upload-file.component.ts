@@ -69,7 +69,7 @@ export class UploadCustomComponent implements OnInit, OnDestroy {
     this.pasteArea = false;
     this.isImage = false;
     this.enableCopyLink = false;
-    this.pasteAreaText = "Arraste e solte arquivos ou cole PrintScreans de telas";
+    this.pasteAreaText = "Arraste e solte arquivos ou cole PrintScreens de telas";
     this._notificationEmitter = new EventEmitter<NotificationParameters>();
 
   }
