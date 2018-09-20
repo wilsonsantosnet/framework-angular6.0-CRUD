@@ -41,7 +41,7 @@ export class ApiService<T> {
     let _count = 0;
 
     this.loading(this.getResource(), true, _count);
-    return this.processResponse(this.http.post(_url, formData, this.requestOptions(false)), _count, true);
+    return this.processResponse(this.http.post(_url, formData, this.requestOptions(false)), _count, true, true);
 
   }
 
@@ -62,7 +62,7 @@ export class ApiService<T> {
     let url = this.makeUrlDeleteUpload(folder, fileName);
     let _count = 0;
     this.loading(this.getResource(), true, _count);
-    return this.processResponse(this.http.delete(url, this.requestOptions()), _count, true);
+    return this.processResponse(this.http.delete(url, this.requestOptions()), _count, true, true);
   }
 
   public post(data: any, messageCustom?: any): Observable<any> {
@@ -74,7 +74,7 @@ export class ApiService<T> {
     var json = JSON.stringify(data, (key, value) => {
       if (value !== null) return value
     });
-    return this.processResponse(this.http.post(url, json, this.requestOptions()), _count, true);
+    return this.processResponse(this.http.post(url, json, this.requestOptions()), _count, true, true);
   }
 
   public postMany(data: any, messageCustom?: any): Observable<any> {
@@ -87,7 +87,7 @@ export class ApiService<T> {
       if (value !== null) return value
     });
 
-    return this.processResponse(this.http.post(url, json, this.requestOptions()), _count, true);
+    return this.processResponse(this.http.post(url, json, this.requestOptions()), _count, true, true);
   }
 
   public delete(data: any): Observable<any> {
@@ -103,7 +103,7 @@ export class ApiService<T> {
       search: this.makeSearchParams(data)
     }));
 
-    return this.processResponse(this.http.delete(url, ro), _count, true);
+    return this.processResponse(this.http.delete(url, ro), _count, true, true);
   }
 
   public put(data: any): Observable<any> {
@@ -115,7 +115,7 @@ export class ApiService<T> {
     var json = JSON.stringify(data, (key, value) => {
       if (value !== null) return value
     });
-    return this.processResponse(this.http.put(url, json, this.requestOptions()), _count, true);
+    return this.processResponse(this.http.put(url, json, this.requestOptions()), _count, true, true);
   }
 
   public export(filters?: any): Observable<any> {
@@ -127,7 +127,7 @@ export class ApiService<T> {
     let _count = 0;
     this.loading(this.getResource(), true, _count);
 
-    return this.processResponse(this.http.get(url, this.requestOptionsBlob().merge(new RequestOptions({ search: this.makeSearchParams(filters) }))), _count, true);
+    return this.processResponse(this.http.get(url, this.requestOptionsBlob().merge(new RequestOptions({ search: this.makeSearchParams(filters) }))), _count, true, false);
   }
 
   public getDataitem(filters?: any): Observable<any> {
@@ -283,7 +283,7 @@ export class ApiService<T> {
     }
     let _count = 0;
     this.loading(this.getResource(), true, _count);
-    return this.processResponse(this.http.get(url, this.requestOptions().merge(new RequestOptions({ search: this.makeSearchParams(filters) }))), _count, false);
+    return this.processResponse(this.http.get(url, this.requestOptions().merge(new RequestOptions({ search: this.makeSearchParams(filters) }))), _count, false, true);
 
   }
 
@@ -392,12 +392,14 @@ export class ApiService<T> {
     return params;
   }
 
-  private successResult(response: Response): Observable<T> {
+  private successJsonResult(response: Response): Observable<T> {
     let _response = response.json();
     return _response;
   }
 
-
+  private successResult(response: Response): Response {
+    return response;
+  }
 
   private errorResult(response: Response): Observable<T> {
 
@@ -430,8 +432,6 @@ export class ApiService<T> {
   }
 
   private notification(response: any, messageCustom: any = null) {
-
-
 
     if (!this._enableNotifification)
       return;
@@ -487,16 +487,18 @@ export class ApiService<T> {
     return res.json().dataList ? res.json().dataList.length : res.json().data ? 1 : 0;
   }
 
- 
-  private processResponse(response: Observable<Response>, _count: number, notification: boolean): Observable<any> {
+
+  private processResponse(response: Observable<Response>, _count: number, notification: boolean, jsonResult: boolean): Observable<any> {
     return response.pipe(
       map(res => {
+
         _count = this.countReponse(res);
 
         if (notification)
           this.notification(res);
 
-        return this.successResult(res);
+        return jsonResult ? this.successJsonResult(res) : this.successResult(res);
+
       }),
       catchError(error => {
         return this.errorResult(error);
