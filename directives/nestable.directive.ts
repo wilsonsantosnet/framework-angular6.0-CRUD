@@ -1,6 +1,5 @@
 import { Directive, ElementRef, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { NgModel } from '@angular/forms';
-import { Observable, Observer } from 'rxjs/Rx';
 import { Http, RequestOptions } from '@angular/http';
 
 declare var $: any;
