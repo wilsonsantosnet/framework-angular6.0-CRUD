@@ -26,6 +26,7 @@ export class ViewModel<T> {
     this.gridCheckModel = init.gridCheckModel;
     this.isParent = init.isParent;
     this.ParentIdField = init.ParentIdField;
+    this.salveNew = init.salveNew;
   }
 
   key: string;
@@ -49,4 +50,5 @@ export class ViewModel<T> {
   gridCheckModel: any;
   isParent: Boolean;
   ParentIdField: string;
+  salveNew: boolean;
 }
