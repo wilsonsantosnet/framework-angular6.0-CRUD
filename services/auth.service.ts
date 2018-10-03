@@ -42,7 +42,7 @@ export class AuthService {
         this._redirect_uri = GlobalService.getEndPoints().APP;
         this._response_type = "id_token token";
         this._scope = GlobalService.getAuthSettings().SCOPE;
-        this._nameCurrentUser = "CURRENT_USER";
+        this._nameCurrentUser = "CURRENT_USER" + GlobalService.getAuthSettings().CLIENT_ID;
         this._cacheType = GlobalService.getAuthSettings().CACHE_TYPE;
 
 
