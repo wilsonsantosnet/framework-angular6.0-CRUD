@@ -19,6 +19,7 @@ export class AuthService {
     private readonly _authorizationUrl: string;
     private readonly _client_id: string;
     private readonly _client_id_ro: string;
+    private readonly _client_id_cc: string;
     private readonly _redirect_uri: string;
     private readonly _response_type: string;
     private readonly _scope: string;
@@ -39,6 +40,7 @@ export class AuthService {
         this._authorizationAfterLogin = GlobalService.getEndPoints().AUTH + '/Funnel/Register';
         this._client_id = GlobalService.getAuthSettings().CLIENT_ID;
         this._client_id_ro = GlobalService.getAuthSettings().CLIENT_ID_RO;
+        this._client_id_cc = GlobalService.getAuthSettings().CLIENT_ID_CC;
         this._redirect_uri = GlobalService.getEndPoints().APP;
         this._response_type = "id_token token";
         this._scope = GlobalService.getAuthSettings().SCOPE;
@@ -46,6 +48,28 @@ export class AuthService {
         this._cacheType = GlobalService.getAuthSettings().CACHE_TYPE;
 
 
+    }
+    
+     public loginClientCredenciais(userName: any, password: any, callback = null) {
+
+        this.apiAuth.enableNotification(false).setResource("authApp", GlobalService.getEndPoints().AUTHAPI).post({
+
+          ClientId: this._client_id_cc,
+          ClientSecret: "4aa288ca-1603-45c2-85c3-b41a08d2bd0a",
+          Scope: this._scope,
+          User: userName,
+          Password: password
+
+        }).subscribe(result => {
+
+          console.log("<<<<< LOGIN CLIENT CREDENCIAL TOKEN >>>>>>", result.data);
+          CacheService.add(this._nameToken, result.data.accessToken, this._cacheType);
+          if (callback)
+            callback(result.data.accessToken);
+
+        }, err => { });
+        this._typeLogin;
+         
     }
 
     public loginResourceOwner(userName: any, password: any, reload = false) {
