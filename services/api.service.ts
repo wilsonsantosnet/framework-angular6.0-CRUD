@@ -403,8 +403,12 @@ export class ApiService<T> {
 
   private errorResult(response: Response): Observable<T> {
 
-    if (response.status == 401 || response.status == 403 || response.status == 0) {
+   if (response.status == 401) {
       this.router.navigate(["/login"]);
+    }
+
+    if (response.status == 403) {
+      this.router.navigate(["/unauthorized"]);
     }
 
     let _response = response.json();
