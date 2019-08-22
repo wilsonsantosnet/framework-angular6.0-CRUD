@@ -20,6 +20,7 @@ export class ViewModel<T> {
     this.generalInfo = init.generalInfo;
     this.infos = init.infos;
     this.grid = init.grid;
+    this.gridOriginal = init.gridOriginal;
     this.form = init.form;
     this.masks = init.masks;
     this.reletedViewModel = init.reletedViewModel;
@@ -32,6 +33,7 @@ export class ViewModel<T> {
   key: string;
   mostrarFiltros: boolean;
   manterTelaAberta: boolean;
+  salveNew: boolean;
   navigationModal: boolean;
   actionTitle: string;
   actionDescription: string;
@@ -44,11 +46,11 @@ export class ViewModel<T> {
   generalInfo: any;
   infos: any;
   grid: any;
+  gridOriginal: any;
   form: FormGroup;
   masks: any;
   reletedViewModel: any;
   gridCheckModel: any;
   isParent: Boolean;
   ParentIdField: string;
-  salveNew: boolean;
 }
