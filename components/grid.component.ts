@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angu
 
 import { GlobalService } from '../../global.service';
 import { ViewModel } from '../model/viewmodel';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'make-grid',
@@ -26,14 +27,41 @@ import { ViewModel } from '../model/viewmodel';
                 <input type="checkbox" class="grid-chk" [checked]='_isCheckedAll' (click)='onCheckAll($event)' />
               </th>
             </tr>
+            <tr *ngIf="_fields && showFilters">
+              <th width="1" class="text-center" *ngIf="showAction  && actionLeft"></th>
+              <th *ngFor="let grid of _fields; let i=index" class="text-nowrap">
+                  <span class="table-sort">
+                    <input *ngIf="grid.show.value && grid.type == 'string'" type='text' [(ngModel)]="vm.modelFilter[grid.fieldName]"  (change)="onFilter($event,grid.fieldName)" class="form-control form-control-sm"/>
+                    <input *ngIf="grid.show.value && grid.type == 'DateTime'" type='text' [(ngModel)]="vm.modelFilter[grid.fieldName]"  (change)="onFilter($event,grid.fieldName)" datepicker/>
+                    <input *ngIf="grid.show.value && grid.type == 'DateTime?'" type='text' [(ngModel)]="vm.modelFilter[grid.fieldName]"  (change)="onFilter($event,grid.fieldName)" datepicker/>
+                    <input *ngIf="grid.show.value && grid.type == 'int?' && !grid.navigationProp" type='text' [(ngModel)]="vm.modelFilter[grid.fieldName]"  (change)="onFilter($event,grid.fieldName)" class="form-control form-control-sm"/>
+                    <input *ngIf="grid.show.value && grid.type == 'int' && !grid.navigationProp" type='text' [(ngModel)]="vm.modelFilter[grid.fieldName]"  (change)="onFilter($event,grid.fieldName)" class="form-control form-control-sm"/>
+
+                    <input *ngIf="grid.show.value && grid.type == 'decimal?' && !grid.navigationProp" type='text' [(ngModel)]="vm.modelFilter[grid.fieldName]"  (change)="onFilter($event,grid.fieldName)" class="form-control form-control-sm" [textMask]='{ mask: vm.masks.maskDecimal }'/>
+                    <input *ngIf="grid.show.value && grid.type == 'decimal' && !grid.navigationProp" type='text' [(ngModel)]="vm.modelFilter[grid.fieldName]"  (change)="onFilter($event,grid.fieldName)" class="form-control form-control-sm" [textMask]='{ mask: vm.masks.maskDecimal }'/>
+
+                    <select *ngIf="grid.show.value && grid.navigationProp && grid.show.pagination" class='form-control' [(ngModel)]="vm.modelFilter[grid.fieldName]" datasource [dataitem]="grid.navigationProp" [fieldFilterName]="'Name'" (change)="onFilter($event,grid.fieldName)" class="form-control form-control-sm" [filterBehavior]="'GetDataListCustomPaging'"></select>
+                    <select *ngIf="grid.show.value && grid.navigationProp && !grid.show.pagination" class='form-control' [(ngModel)]="vm.modelFilter[grid.fieldName]" datasource [dataitem]="grid.navigationProp" [fieldFilterName]="'Name'" (change)="onFilter($event,grid.fieldName)" class="form-control form-control-sm"></select>
+
+                    <select *ngIf="grid.show.value && grid.type == 'dataitem'" class="form-control form-control-sm" [(ngModel)]="vm.modelFilter[grid.fieldName]" (change)="onFilter($event,grid.fieldName)" datasourceaux [dataitem]="grid.fieldName" [dataAux]="grid.aux" class="form-control form-control-sm"></select>
+                    <select *ngIf="grid.show.value && grid.type == 'bool'"class="form-control form-control-sm" [(ngModel)]="vm.modelFilter[grid.fieldName]" (change)="onFilter($event,grid.fieldName)" datasourceaux [dataitem]="grid.fieldName" [dataAux]="[{ id: 'false', name: 'Não' }, { id: 'true', name: 'Sim' }]" ></select>
+
+                  </span>
+              </th>
+              <th width="1" class="text-center" *ngIf="showAction  && !actionLeft"></th>
+              <th width="65" class="text-center text-nowrap" *ngIf="showCheckbox">
+              </th>
+            <tr>
           </thead>
           <tbody>
             <tr *ngFor="let item of vm.filterResult">
 
               <td class="text-center text-nowrap" *ngIf="showAction && actionLeft" >
-                <button *ngFor="let btn of customButton" (click)="btn.click(item)" placement="top" title="{{btn.tooltip}}" class="btn btn-sm {{ btn.class }}">
-                  <i class="fa {{ btn.icon }}"></i>
-                </button>
+                <span *ngIf="showCustom">
+                  <button *ngFor="let btn of customButton" (click)="btn.click(item)" placement="top" title="{{btn.tooltip}}" class="btn btn-sm {{ btn.class }}">
+                    <i class="fa {{ btn.icon }}"></i>
+                  </button>
+                </span> 
                 <button (click)="onEdit($event, item)" *ngIf="showEdit" placement="top" title="Editar" class="btn btn-sm btn-primary">
                   <i class="icon icon-pencil"></i>
                 </button>
@@ -85,6 +113,9 @@ import { ViewModel } from '../model/viewmodel';
 export class MakeGridComponent implements OnChanges {
 
   @Input() vm: ViewModel<any>
+
+  @Input() showCustom: boolean;
+  @Input() showFilters: boolean;
   @Input() showEdit: boolean;
   @Input() showDetails: boolean;
   @Input() showPrint: boolean;
@@ -105,19 +136,123 @@ export class MakeGridComponent implements OnChanges {
   @Output() print = new EventEmitter<any>();
   @Output() deleteConfimation = new EventEmitter<any>();
   @Output() orderBy = new EventEmitter<any>();
+  @Output() filter = new EventEmitter<any>();
 
 
   _modelOutput: any;
   _collectionjsonTemplate: any;
   _isCheckedAll: boolean;
   _isAsc: boolean;
-
+  _fields: any[];
 
   constructor() {
     this.init();
   }
 
-  ngOnChanges(): void { }
+  ngOnChanges(): void {
+
+    if (this.vm.gridOriginal) {
+
+      var map = this.vm.gridOriginal.map((item) => {
+        return {
+          fieldName: item.key,
+          show: this.getShowFieldCustom(item),
+          type: item.info.type,
+          navigationProp: item.info.navigationProp,
+          aux: item.info.aux,
+        }
+      });
+
+      var _fields = [];
+      for (var i = 0; i < this.vm.grid.filter(_ => _.info.list).length; i++) {
+
+        var item = map.filter(_ => _.show.keyCustom == this.vm.grid[i].key)
+        if (item.length > 0)
+          _fields.push(item[0])
+        else {
+          _fields.push({
+            fieldName: this.vm.grid[i].key,
+            show: this.getShowFieldCustom(this.vm.grid[i]),
+            type: this.vm.grid[i].info.type,
+            navigationProp: this.vm.grid[i].info.navigationProp,
+            aux: this.vm.grid[i].info.aux
+          })
+        }
+      }
+
+      this._fields = _fields;
+    }
+
+  }
+
+  getShowFieldCustom(itemOriginal: any) {
+
+
+    var externalFilter = false;
+    if (itemOriginal.key.includes(".")) {
+      if (!itemOriginal.key.endsWith("Id")) {
+        externalFilter = true;
+      }
+    }
+
+    var termA = itemOriginal.key.replace('Id', '.');
+    var termB = itemOriginal.key.replace('sId', '.');
+
+    var show = {
+      type: "Default",
+      term: termA,
+      termOriginal: itemOriginal,
+      ternFounded: null,
+      value: false,
+      keyCustom: null,
+      pagination: false,
+      customFilter: false,
+    };
+
+
+    var foundedResult = this.vm.grid.filter(_ => _.key.startsWith(termA));
+    if (foundedResult.length > 0) {
+      return {
+        type: "foundedresultstartsWith",
+        term: termA,
+        termOriginal: itemOriginal,
+        ternFounded: foundedResult[0],
+        value: externalFilter ? foundedResult[0].info.customFilter : foundedResult[0].info.list,
+        keyCustom: foundedResult[0].key,
+        pagination: foundedResult[0].info.pagination,
+        customFilter: foundedResult[0].info.customFilter
+      };
+    }
+
+    var foundedResult = this.vm.grid.filter(_ => _.key.startsWith(termB));
+    if (foundedResult.length > 0) {
+      return {
+        type: "foundedresultstartsWith",
+        term: termB,
+        termOriginal: itemOriginal,
+        ternFounded: foundedResult[0],
+        value: externalFilter ? foundedResult[0].info.customFilter : foundedResult[0].info.list,
+        keyCustom: foundedResult[0].key,
+        pagination: foundedResult[0].info.pagination,
+        customFilter: foundedResult[0].info.customFilter
+      };
+    }
+
+    var foundedResult = this.vm.grid.filter(_ => _.key == itemOriginal.key);
+    if (foundedResult.length > 0) {
+      return {
+        type: "foundedresultEquals",
+        term: itemOriginal,
+        termOriginal: itemOriginal,
+        ternFounded: foundedResult[0],
+        value: externalFilter ? foundedResult[0].info.customFilter : foundedResult[0].info.list,
+        keyCustom: foundedResult[0].key,
+        pagination: foundedResult[0].info.pagination,
+        customFilter: foundedResult[0].info.customFilter
+      };
+    }
+    return show;
+  }
 
   init() {
     this._modelOutput = [];
@@ -246,5 +381,8 @@ export class MakeGridComponent implements OnChanges {
       asc: this._isAsc
     });
   }
-
+  onFilter(evt: any, field: any) {
+    this.filter.emit(this.vm.modelFilter);
+    console.log(field, this.vm.modelFilter);
+  }
 }
