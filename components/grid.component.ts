@@ -45,6 +45,7 @@ import { forEach } from '@angular/router/src/utils/collection';
 
                     <select *ngIf="grid.show.value && grid.type == 'dataitem'" class="form-control form-control-sm" [(ngModel)]="vm.modelFilter[grid.fieldName]" (change)="onFilter($event,grid.fieldName)" datasourceaux [dataitem]="grid.fieldName" [dataAux]="grid.aux" class="form-control form-control-sm"></select>
                     <select *ngIf="grid.show.value && grid.type == 'bool'"class="form-control form-control-sm" [(ngModel)]="vm.modelFilter[grid.fieldName]" (change)="onFilter($event,grid.fieldName)" datasourceaux [dataitem]="grid.fieldName" [dataAux]="[{ id: 'false', name: 'Não' }, { id: 'true', name: 'Sim' }]" ></select>
+                    <select *ngIf="grid.show.value && grid.type == 'bool?'"class="form-control form-control-sm" [(ngModel)]="vm.modelFilter[grid.fieldName]" (change)="onFilter($event,grid.fieldName)" datasourceaux [dataitem]="grid.fieldName" [dataAux]="[{ id: 'false', name: 'Não' }, { id: 'true', name: 'Sim' }]" ></select>
 
                   </span>
               </th>
