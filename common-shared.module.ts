@@ -40,6 +40,7 @@ import { CallerDiretive } from '../common/directives/caller.directive';
 import { DataSourceShowDirective } from '../common/directives/show-datasource.directive';
 import { isAuthPipe } from './pipes/is-auth.pipe';
 import { CpfCnpjComponent } from './components/cpf-cnpj.component';
+import { DataSourceAuxDirective } from './directives/select-datasource-aux.directive';
 
 @NgModule({
   imports: [
@@ -57,6 +58,7 @@ import { CpfCnpjComponent } from './components/cpf-cnpj.component';
     CpfCnpjComponent,
     MakePaginationComponent,
     DataSourceDirective,
+    DataSourceAuxDirective,
     MaskInputDirective,
     MaskMoneyDirective,
     UnMaskDirective,
@@ -101,6 +103,7 @@ import { CpfCnpjComponent } from './components/cpf-cnpj.component';
     MultiSelectFunnelComponent,
     TagCustomComponent,
     DataSourceDirective,
+    DataSourceAuxDirective,
     MaskInputDirective,
     MaskMoneyDirective,
     UnMaskDirective,
