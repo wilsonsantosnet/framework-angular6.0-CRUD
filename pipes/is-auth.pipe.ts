@@ -18,12 +18,13 @@ export class isAuthPipe implements PipeTransform {
       var tools = JSON.parse(currentUser.claims.tools);
       return tools.filter((item) => {
 
-        if (operation)
+        if (operation && item.Key && vm.key)
           return item.Key.toString().toLowerCase() == vm.key.toString().toLowerCase() && item[operation] == true;
 
-        return item.Key.toString().toLowerCase() == vm.key.toString().toLowerCase();
+        if (item.Key && vm.key)
+          return item.Key.toString().toLowerCase() == vm.key.toString().toLowerCase();
 
-      }).length > 0
+      }).length > 0 
     }
     return true;
   }
