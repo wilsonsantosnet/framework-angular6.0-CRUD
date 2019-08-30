@@ -20,7 +20,9 @@ import { ViewModel } from '../model/viewmodel';
         </div>
         <div class="col" *ngIf=!disableSummary>
           <div class="pull-right">
-            <strong>Total de registros: </strong> <span class="label label-primary">{{ vm.summary.total }}</span>
+            <strong>Total de registros: </strong> <span class="label label-primary">
+              <bind-custom [model]="vm.summary.total" [format]="'integer'" [tag]="'span'"></bind-custom>
+            </span>
           </div>
         </div>
       </div>`

@@ -32,8 +32,8 @@ import { forEach } from '@angular/router/src/utils/collection';
               <th *ngFor="let grid of _fields; let i=index" class="text-nowrap">
                   <span class="table-sort">
                     <input *ngIf="grid.show.value && grid.type == 'string'" type='text' [(ngModel)]="vm.modelFilter[grid.fieldName]"  (change)="onFilter($event,grid.fieldName)" class="form-control form-control-sm"/>
-                    <input *ngIf="grid.show.value && grid.type == 'DateTime'" type='text' [(ngModel)]="vm.modelFilter[grid.fieldName]"  (change)="onFilter($event,grid.fieldName)" datepicker/>
-                    <input *ngIf="grid.show.value && grid.type == 'DateTime?'" type='text' [(ngModel)]="vm.modelFilter[grid.fieldName]"  (change)="onFilter($event,grid.fieldName)" datepicker/>
+                    <input *ngIf="grid.show.value && grid.type == 'DateTime'" type='text' [(ngModel)]="vm.modelFilter[grid.fieldName]"  (change)="onFilter($event,grid.fieldName)" datepicker class="form-control form-control-sm"/>
+                    <input *ngIf="grid.show.value && grid.type == 'DateTime?'" type='text' [(ngModel)]="vm.modelFilter[grid.fieldName]"  (change)="onFilter($event,grid.fieldName)" datepicker class="form-control form-control-sm"/>
                     <input *ngIf="grid.show.value && grid.type == 'int?' && !grid.navigationProp" type='text' [(ngModel)]="vm.modelFilter[grid.fieldName]"  (change)="onFilter($event,grid.fieldName)" class="form-control form-control-sm"/>
                     <input *ngIf="grid.show.value && grid.type == 'int' && !grid.navigationProp" type='text' [(ngModel)]="vm.modelFilter[grid.fieldName]"  (change)="onFilter($event,grid.fieldName)" class="form-control form-control-sm"/>
 

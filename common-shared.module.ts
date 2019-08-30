@@ -41,6 +41,12 @@ import { DataSourceShowDirective } from '../common/directives/show-datasource.di
 import { isAuthPipe } from './pipes/is-auth.pipe';
 import { CpfCnpjComponent } from './components/cpf-cnpj.component';
 import { DataSourceAuxDirective } from './directives/select-datasource-aux.directive';
+import { ListValueComponent } from './components/list-value.component';
+import { ListSimpleComponent } from './components/list-simple.component';
+import { ListFilteredComponent } from './components/list-filtered.component';
+import { NavigationPropertyPipe } from './pipes/navigation-property.pipe';
+
+
 
 @NgModule({
   imports: [
@@ -85,7 +91,11 @@ import { DataSourceAuxDirective } from './directives/select-datasource-aux.direc
     CallerDiretive,
     DataSourceShowDirective,
     NestableDirective,
-    LoadingOnSideComponent
+    LoadingOnSideComponent,
+    ListValueComponent,
+    ListSimpleComponent,
+    ListFilteredComponent,
+    NavigationPropertyPipe,
   ],
   providers: [
   ],
@@ -118,6 +128,10 @@ import { DataSourceAuxDirective } from './directives/select-datasource-aux.direc
     TagInputModule,
     TabsModule,
     LoadingOnSideComponent,
+    ListValueComponent,
+    ListSimpleComponent,
+    ListFilteredComponent,
+    NavigationPropertyPipe,
     DateFormatPipe,
     MaskFormatPipe,
     LoopToPipe,

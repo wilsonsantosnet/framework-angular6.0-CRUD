@@ -59,7 +59,7 @@ export class BindCustomComponent implements OnInit, OnChanges {
       this.value = this.datePipe.transform(this.convertDate(this.model), 'dd/MM/yyyy HH:mm');
     }
     else if ((this.format.toLocaleLowerCase() === 'integer' || this.format.toLocaleLowerCase() === 'int' || this.format.toLocaleLowerCase() === 'int?') && !isNaN(this.model)) {
-      this.value = this.model;
+      this.value = this.decimalPipe.transform(this.model, '1.0-0');
     }
     else if ((this.format.toLocaleLowerCase() === 'decimal' || this.format.toLocaleLowerCase() === 'decimal?' ) && !isNaN(this.model)) {
       this.value = this.decimalPipe.transform(this.model, '1.2-2');
