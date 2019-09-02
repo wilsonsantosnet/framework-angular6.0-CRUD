@@ -17,6 +17,9 @@ export class ComponentBase {
   _showBtnPrint: Boolean;
   _showBtnDelete: Boolean;
 
+  _showClassName: Boolean;
+  _classNames: string;
+
   constructor() {
 
     this.hideComponents();
@@ -28,6 +31,8 @@ export class ComponentBase {
     this._showBtnEdit = true;
     this._showBtnPrint = true;
     this._showBtnDelete = true;
+    this._showClassName = true;
+    this._classNames = 'framework-custom';
 
   }
 
