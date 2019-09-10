@@ -19,7 +19,7 @@ export class CepDirective {
 
   constructor(private api: ApiService<any>, private ngModel: NgModel) {
     this.onfind = new EventEmitter<any>();
-    this._endpoint = "http://target-cep.azurewebsites.net/api/";
+    this._endpoint = "https://target-cep.azurewebsites.net/api/";
   }
 
   onInputChange(data) {
