@@ -56,7 +56,8 @@ export class UploadCustomComponent implements OnInit, OnDestroy {
   downloadUri: string;
   fileUri: string;
   isImage: boolean;
-
+  className: string;
+  
   _notificationEmitter: EventEmitter<NotificationParameters>;
 
   constructor(private api: ApiService<any>, private ref: ChangeDetectorRef) {
@@ -96,7 +97,7 @@ export class UploadCustomComponent implements OnInit, OnDestroy {
       let area = document.getElementById("upload-component-paste-area");
       
       area.addEventListener("paste", (e) => this.handlePaste(e));
-      area.ondragover = function () { this.className = 'upload-component-paste-area'; return false; };
+      area.ondragover = () => { this.className = 'upload-component-paste-area'; return false; };
       area.ondrop = (e) => { this.handleDrop(e) }
       
     }
