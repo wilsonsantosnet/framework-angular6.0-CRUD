@@ -21,10 +21,10 @@ export class AuthGuard implements CanActivate {
         if (state.url.startsWith(item.Route + "/edit/") && item.CanWrite)
           return true;
 
-        if (state.url.startsWith(item.Route + "/details/") && state.url && item.CanRead)
+        if (state.url.startsWith(item.Route + "/details/") && state.url && item.CanReadOne)
           return true;
 
-        if (state.url.startsWith(item.Route + "/print/") && state.url && item.CanRead)
+        if (state.url.startsWith(item.Route + "/print/") && state.url && item.CanReadOne)
           return true;
 
 
