@@ -1,13 +1,14 @@
-﻿import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { GlobalService, OperationRequest } from '../../global.service';
+import { Subscription } from 'rxjs';
 
 @Component({
-    selector: 'loading',
-    template: `
+  selector: 'loading',
+  template: `
     <div class="loader" [hidden]="!requesting">
         <img src="../../../assets/img/loader.gif" alt="carregando..." />
     </div>`,
-    styles: [`
+  styles: [`
     .loader {
       position: fixed;
       z-index: 9999;
@@ -22,28 +23,24 @@ import { GlobalService, OperationRequest } from '../../global.service';
       margin: 200px auto; }
   `]
 })
-export class LoadingComponent implements OnInit, OnDestroy  {
+export class LoadingComponent implements OnInit, OnDestroy {
 
 
-    requesting: boolean;
-    operationRequesting: EventEmitter<OperationRequest>;
+  requesting: boolean;
+  operationRequesting: Subscription;
 
-    ngOnInit() {
+  ngOnInit() {
 
-        this.operationRequesting = GlobalService.getOperationRequestingEmitter().subscribe((_requesting: OperationRequest) => {
-            this.requesting = _requesting.value;
-            //console.log("_requesting", _requesting)
-        })
-    }
+    this.operationRequesting = GlobalService.getOperationRequestingEmitter().subscribe((_requesting: OperationRequest) => {
+      this.requesting = _requesting.value;
+    })
+  }
 
+  constructor() { }
 
-    constructor() {
-        this.operationRequesting = new EventEmitter<OperationRequest>();
-    }
-
-    ngOnDestroy() {
-        if (this.operationRequesting)
-            this.operationRequesting.unsubscribe();
-    }
+  ngOnDestroy() {
+    if (this.operationRequesting)
+      this.operationRequesting.unsubscribe();
+  }
 
 }

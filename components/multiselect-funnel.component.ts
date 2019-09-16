@@ -2,6 +2,7 @@ import { Component, NgModule, OnInit, OnDestroy, Input, Output, EventEmitter, Vi
 import { ApiService } from "../../common/services/api.service";
 import { GlobalService, NotificationParameters } from "../../global.service";
 import { ViewModel } from '../model/viewmodel';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'multiselect-funnel',
   template: `
@@ -64,12 +65,11 @@ export class MultiSelectFunnelComponent implements OnInit, OnDestroy {
   _modelInput: any;
   _filter: any;
   _filterFunnel: string
-  _notificationEmitter: EventEmitter<NotificationParameters>;
+  _notificationEmitter: Subscription;
   _filteronstop: any;
   constructor(private api: ApiService<any>) {
     this._filter = {};
     this.fieldFilterName = "nome";
-    this._notificationEmitter = new EventEmitter<NotificationParameters>();
     this._filteronstop = null;
   }
   ngOnInit() {

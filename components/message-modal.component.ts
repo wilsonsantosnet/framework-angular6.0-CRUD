@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { GlobalService, NotificationParameters } from '../../global.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'message-modal',
@@ -28,11 +29,11 @@ import { GlobalService, NotificationParameters } from '../../global.service';
 export class MessageModalComponent implements OnInit, OnDestroy {
 
 
-  @ViewChild('_messageModal') private _messageModal: ModalDirective;
+  @ViewChild('_messageModal', { static: false }) private _messageModal: ModalDirective;
 
   vm: any;
 
-  _notificationEmitter: EventEmitter<NotificationParameters>;
+  _notificationEmitter: Subscription;
 
   public config = {
     animated: true,

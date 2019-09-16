@@ -3,6 +3,7 @@ import { NgModel, FormControlName } from '@angular/forms';
 
 import { ApiService } from '../services/api.service';
 import { GlobalService, NotificationParameters } from "../../global.service";
+import { Subscription } from 'rxjs';
 
 declare var $: any;
 
@@ -22,13 +23,12 @@ export class DataSourceAuxDirective implements OnInit, OnDestroy {
 
   accessor: any;
 
-  _notificationEmitter: EventEmitter<NotificationParameters>;
+  _notificationEmitter: Subscription;
 
   constructor(private _elemetRef: ElementRef, private _renderer: Renderer, private api: ApiService<any>, private ngModel: NgModel, @Optional() @Self() private controlName: FormControlName) {
 
     this.change = new EventEmitter<any>();
     this.labelInitial = "Selecione";
-    this._notificationEmitter = new EventEmitter<NotificationParameters>();
 
   }
 

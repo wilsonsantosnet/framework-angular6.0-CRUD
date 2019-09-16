@@ -4,6 +4,7 @@ import { Component, NgModule, OnInit, OnDestroy, Input, Output, EventEmitter, Vi
 import { GlobalService, NotificationParameters } from "../../global.service";
 import { ViewModel } from '../model/viewmodel';
 import { ApiService } from '../services/api.service';
+import { Subscription } from 'rxjs';
 
 declare var $: any;
 
@@ -41,7 +42,7 @@ export class MultiSelectComponent implements OnInit, OnDestroy {
   _collectionjsonTemplate
   _modelInput: any;
   _filter: any;
-  _notificationEmitter: EventEmitter<NotificationParameters>;
+  _notificationEmitter: Subscription;
   _numberId: number
   _ctrlNameNumberId: string;
 
@@ -50,7 +51,6 @@ export class MultiSelectComponent implements OnInit, OnDestroy {
     this._filter = {};
     this.enabledSelect2 = GlobalService.getGlobalSettings().enabledSelect2;
     this.fieldFilterName = "nome";
-    this._notificationEmitter = new EventEmitter<NotificationParameters>();
     this.filterBehavior = "GetDataItem"
   }
 

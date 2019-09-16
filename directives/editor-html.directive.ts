@@ -1,6 +1,7 @@
-﻿import { Directive, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Directive, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { GlobalService, NotificationParameters } from "../../global.service";
+import { Subscription } from 'rxjs';
 
 declare var $,tinymce: any;
 
@@ -13,11 +14,11 @@ export class EditorHtmlDiretive implements OnInit {
 
     @Output() editorKeyup = new EventEmitter<number>();
     editor: any;
-    _notificationEmitter: EventEmitter<NotificationParameters>;
+    _notificationEmitter: Subscription;
 
     constructor(private el: ElementRef, private ngModel: NgModel) {
 
-        this._notificationEmitter = new EventEmitter<NotificationParameters>();    
+ 
 
     }
 

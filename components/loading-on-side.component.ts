@@ -1,5 +1,6 @@
-﻿import { Component, OnInit, OnDestroy, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter, Input } from '@angular/core';
 import { GlobalService, OperationRequest } from '../../global.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'loading-on-side',
@@ -26,11 +27,10 @@ export class LoadingOnSideComponent implements OnInit, OnDestroy {
 
     requesting: boolean;
     hiddenInfoData: boolean;
-    operationRequesting: EventEmitter<OperationRequest>;
+    operationRequesting: Subscription;
     @Input() resource: string;
 
     constructor() {
-        this.operationRequesting = new EventEmitter<OperationRequest>();
         this.hiddenInfoData = true;
     }
 

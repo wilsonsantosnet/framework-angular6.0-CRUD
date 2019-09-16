@@ -1,6 +1,5 @@
 import { Directive, ElementRef, Renderer, Input, OnInit, HostListener } from '@angular/core';
 import { NgModel, NgControl } from '@angular/forms';
-import { forEach } from '@angular/router/src/utils/collection';
 
 @Directive({
   selector: '[unmask]',

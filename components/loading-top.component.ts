@@ -1,13 +1,14 @@
-﻿import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { GlobalService } from '../../global.service';
+import { Subscription } from 'rxjs';
 
 @Component({
-    selector: 'loadingTop',
-    template: `
+  selector: 'loadingTop',
+  template: `
     <div class="loader" [hidden]="!requesting">
         <img src="../../../assets/img/loader.gif" alt="carregando..." />
     </div>`,
-    styles: [`
+  styles: [`
     .loader {
       opacity: .90;
       filter: alpha(opacity=90);
@@ -23,22 +24,23 @@ import { GlobalService } from '../../global.service';
 export class LoadingTopComponent implements OnInit, OnDestroy {
 
 
-    requesting: boolean;
-    _operationRequesting: EventEmitter<boolean>;
+  requesting: boolean;
 
-    constructor() {
-        this._operationRequesting = new EventEmitter<boolean>();
-    }
 
-    ngOnInit() {
-        this._operationRequesting = GlobalService.getOperationRequestingEmitter().subscribe((_requesting : boolean) => {
-            this.requesting = _requesting;
-        })
-    }
+  _operationRequesting: Subscription;
 
-    ngOnDestroy() {
-        if (this._operationRequesting)
-            this._operationRequesting.unsubscribe();
-    }
+  constructor() { }
+
+  ngOnInit() {
+    this._operationRequesting = GlobalService.getOperationRequestingEmitter()
+      .subscribe((_requesting: boolean) => {
+        this.requesting = _requesting;
+      })
+  }
+
+  ngOnDestroy() {
+    if (this._operationRequesting)
+      this._operationRequesting.unsubscribe();
+  }
 
 }

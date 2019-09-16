@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, ChangeDetect
 import { GlobalService, NotificationParameters } from "../../global.service";
 import { ApiService } from "../../common/services/api.service";
 import { ViewModel } from '../model/viewmodel';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'upload-custom',
@@ -37,7 +38,7 @@ import { ViewModel } from '../model/viewmodel';
 })
 export class UploadCustomComponent implements OnInit, OnDestroy {
 
-  @ViewChild('file') fileUpload: any;
+  @ViewChild('file', { static: false }) fileUpload: any;
   @Output() onChangeUploadExternal = new EventEmitter<any>();
 
   @Input() label: string;
@@ -58,7 +59,7 @@ export class UploadCustomComponent implements OnInit, OnDestroy {
   isImage: boolean;
   className: string;
   
-  _notificationEmitter: EventEmitter<NotificationParameters>;
+  _notificationEmitter: Subscription;
 
   constructor(private api: ApiService<any>, private ref: ChangeDetectorRef) {
 
@@ -71,7 +72,7 @@ export class UploadCustomComponent implements OnInit, OnDestroy {
     this.isImage = false;
     this.enableCopyLink = false;
     this.pasteAreaText = "Arraste e solte arquivos ou cole PrintScreens de telas";
-    this._notificationEmitter = new EventEmitter<NotificationParameters>();
+
 
   }
 

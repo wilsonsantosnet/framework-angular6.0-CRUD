@@ -2,7 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angu
 
 import { GlobalService } from '../../global.service';
 import { ViewModel } from '../model/viewmodel';
-import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'make-grid',

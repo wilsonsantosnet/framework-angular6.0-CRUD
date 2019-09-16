@@ -1,8 +1,9 @@
-﻿import { Directive, ElementRef, Renderer, Input, Output, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+import { Directive, ElementRef, Renderer, Input, Output, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { NgModel } from '@angular/forms';
 
 import { ApiService } from '../services/api.service';
 import { GlobalService, NotificationParameters } from '../../global.service'
+import { Subscription } from 'rxjs';
 
 
 @Directive({
@@ -14,7 +15,7 @@ import { GlobalService, NotificationParameters } from '../../global.service'
 export class DomElemetAppendDirective implements OnInit, OnDestroy {
 
     @Input() dataitem: any[];
-    _notificationEmitter: EventEmitter<NotificationParameters>;
+    _notificationEmitter: Subscription;
 
     constructor(private _elemetRef: ElementRef, private _renderer: Renderer, private api: ApiService<any>, private ngModel: NgModel) {
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { GlobalService, NotificationParameters } from '../../global.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'confirm-modal',
@@ -32,14 +33,14 @@ import { GlobalService, NotificationParameters } from '../../global.service';
 export class ConfirmModalComponent implements OnInit, OnDestroy {
 
 
-    @ViewChild('_confirmModal') private _confirmModal: ModalDirective;
+    @ViewChild('_confirmModal', { static: false }) private _confirmModal: ModalDirective;
 
     vm: any;
 
     _openationConfimationYes: any;
     _operationService: any;
     _operationVM: any;
-    _notificationEmitter: EventEmitter<NotificationParameters>;
+    _notificationEmitter: Subscription;
 
     public config = {
         animated: true,

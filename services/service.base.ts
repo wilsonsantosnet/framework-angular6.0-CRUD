@@ -1,4 +1,3 @@
-import { ViewRef_ } from "@angular/core/src/view";
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
 
 import { MainService } from '../../main/main.service';
@@ -78,9 +77,9 @@ export class ServiceBase {
     this._interval = setInterval(() => {
       changeDetector.reattach();
 
-      if (changeDetector && !(changeDetector as ViewRef_).destroyed) {
-        changeDetector.detectChanges();
-      }
+      //if (changeDetector && !(changeDetector as ViewRef_).destroyed) {
+      //  changeDetector.detectChanges();
+      //}
 
       changeDetector.detach();
     }, 250);
