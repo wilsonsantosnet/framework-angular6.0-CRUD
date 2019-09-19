@@ -23,6 +23,10 @@ export class AuthGuard implements CanActivate {
 
         if (state.url.startsWith(item.Route + "/details/") && state.url && item.CanReadOne)
           return true;
+        
+        if (state.url.startsWith(item.Route + "/page/") && state.url && item.CanReadOne)
+          return true;
+
 
         if (state.url.startsWith(item.Route + "/print/") && state.url && item.CanReadOne)
           return true;
