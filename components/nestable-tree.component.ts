@@ -3,7 +3,7 @@ import { Component, ElementRef, Input, OnInit, EventEmitter, Output, OnChanges, 
 declare var $: any;
 
 @Component({
-  selector: 'nestabale-tree',
+  selector: 'nestable-tree',
   template: `
     <div class="dd" [id]="id" [nestable]="data" (change)="onChangeNestabale($event)">
       <ol class="dd-list root" >
