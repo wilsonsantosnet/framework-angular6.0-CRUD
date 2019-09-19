@@ -226,3 +226,33 @@ div class="row">
   </section>
 </div>
 ```
+
+### Nestabale
+
+## HTML
+```
+ <nestable-tree [data]="showOrder.nestableData" [id]="content-nestable"
+                      (change)="onChangeNestabale($event)"></nestable-tree>
+```
+## ts Data
+```
+this.showOrder.nestableData = result.dataList.map((item) => {
+            return {
+              id: item.contentId,
+              name: item.title,
+              dataAditional: item
+            }
+});
+
+```
+
+## Ts Event
+onChangeNestabale(e: any) {
+
+    this.itemOrded = e.map((item, i) => {
+      let objRetorno: any = {};
+      objRetorno.order = i + 1;
+      return objRetorno;
+    })
+
+}
