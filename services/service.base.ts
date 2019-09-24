@@ -97,6 +97,16 @@ export class ServiceBase {
       allowDecimal: true,
       includeThousandsSeparator: false,
     })
+    
+    const moneyMask = createNumberMask({
+      prefix: '',
+      suffix: '',
+      decimalLimit: 2,
+      allowDecimal: true,
+      requireDecimal: true,
+      thousandsSeparatorSymbol: '.',
+      decimalSymbol: ',',
+    })
 
     return {
       maskUF: [/\D/, /\D/,],
@@ -109,8 +119,8 @@ export class ServiceBase {
       maskCelular: ['(', /\d/, /\d/, ')', /\d/, /\d/, /\d/, /\d/, /\d/,'-', /\d/, /\d/, /\d/, /\d/],
       maskHorario: [/\d/, /\d/, ':', /\d/, /\d/],
       cartaoCredito: [/\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/],
-      maskDecimal: decimalMask
-
+      maskDecimal: decimalMask,
+      maskMoney: moneyMask
     }
 
   }
