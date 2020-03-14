@@ -1,10 +1,9 @@
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
-
 import { MainService } from '../../main/main.service';
 import { CacheService } from '../../common/services/cache.service';
 import { ECacheType } from '../../common/type-cache.enum';
-
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { ViewRef } from '@angular/core';
 
 export class ServiceBase {
 
@@ -77,9 +76,9 @@ export class ServiceBase {
     this._interval = setInterval(() => {
       changeDetector.reattach();
 
-      //if (changeDetector && !(changeDetector as ViewRef_).destroyed) {
-      //  changeDetector.detectChanges();
-      //}
+      if (changeDetector && !(changeDetector as ViewRef).destroyed) {
+        changeDetector.detectChanges();
+      }
 
       changeDetector.detach();
     }, 250);
