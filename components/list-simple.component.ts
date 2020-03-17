@@ -7,45 +7,47 @@ import { ApiService } from 'src/app/common/services/api.service';
 
 @Component({
   selector: 'list-simple',
-  template: `   <section class="col-md-12">
-                    <div class="form-group">
-                        <label class="mr-1">{{ vm.infos | traduction:selectLabelTitle }}</label> 
-                        <div class="form-row">
-                            <div class="col">
-                                <select class="form-control" name="selectDataItem" 
-                                    [(ngModel)]="formComponent[ctrlFieldKey]" datasource 
-                                    [dataitem]="selectDataItem" 
-                                    [fieldFilterName]="selectFieldDescription"
-                                    [datafilters]="datafilters">
-                                </select>
-                            </div>
-                            <div class="col-auto">
-                                <button type="button" class="btn btn-sm btn-primary" (click)="addItem()"><i class="fa fa-plus"></i></button>
-                            </div>
-                        </div>
-                    </div>
+  template: `<div class="row">
+                  <section class="col-md-12">
+                      <div class="form-group">
+                          <label class="mr-1">{{ vm.infos | traduction:selectLabelTitle }}</label> 
+                          <div class="form-row">
+                              <div class="col">
+                                  <select class="form-control" name="selectDataItem" 
+                                      [(ngModel)]="formComponent[ctrlFieldKey]" datasource 
+                                      [dataitem]="selectDataItem" 
+                                      [fieldFilterName]="selectFieldFilterName"
+                                      [datafilters]="datafilters">
+                                  </select>
+                              </div>
+                              <div class="col-auto">
+                                  <button type="button" class="btn btn-sm btn-primary" (click)="addItem()"><i class="fa fa-plus"></i></button>
+                              </div>
+                          </div>
+                      </div>
                     </section>
 
                     <section class="col-md-12">
-                    <table class="table table-bordered table-hover table-stripped" *ngIf="this.vm.model[this.ctrlName] && this.vm.model[this.ctrlName].length > 0">
-                        <colgroup>
-                            <col>
-                            <col width="1%">
-                        </colgroup>
-                        <thead class="thead-light">
-                            <tr>
-                                <th>{{selectLabelTitle}}</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item of this.vm.model[this.ctrlName]">
-                                <th>{{item | navigationProperty: selectFieldDescription}}</th>
-                                <td><span class="text-danger cursor" (click)="removeItem(item.description)" title="{{ vm.infos | traduction:'Excluir' }}"><i class="fa fa-trash"></i></span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </section>`
+                      <table class="table table-bordered table-hover table-stripped" *ngIf="this.vm.model[this.ctrlName] && this.vm.model[this.ctrlName].length > 0">
+                          <colgroup>
+                              <col>
+                              <col width="1%">
+                          </colgroup>
+                          <thead class="thead-light">
+                              <tr>
+                                  <th>{{selectLabelTitle}}</th>
+                                  <th></th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let item of this.vm.model[this.ctrlName]">
+                                  <th>{{item | navigationProperty: selectFieldDescription}}</th>
+                                  <td><span class="text-danger cursor" (click)="removeItem(item.description)" title="{{ vm.infos | traduction:'Excluir' }}"><i class="fa fa-trash"></i></span></td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </section>
+          </div>`
 })
 export class ListSimpleComponent implements OnInit {
 
@@ -59,6 +61,8 @@ export class ListSimpleComponent implements OnInit {
   @Input() selectDataItem: string;
   @Input() selectFieldKey: string;
   @Input() selectFieldDescription: string;
+  @Input() selectFieldFilterName: string;
+  
 
   public formComponent: any;
 
