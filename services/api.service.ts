@@ -19,6 +19,9 @@ export class ApiService<T> {
   private _apiDefault: string;
   private _cacheType: ECacheType;
   private _enabledOldBack: boolean;
+  private _tokenAuth: string;
+  private _tokenAuthAnonymous: string;
+
 
   constructor(private http: Http, private notificationsService: NotificationsService, private router: Router) {
 
@@ -313,9 +316,13 @@ export class ApiService<T> {
 
   private HeaderAuth() {
 
-    var TOKEN_AUTH = CacheService.get('TOKEN_AUTH', this._cacheType);
-    if (!TOKEN_AUTH)
+    this._tokenAuth = CacheService.get(GlobalService.getAuthSettings().NAME_TOKEN, this._cacheType);
+    this._tokenAuthAnonymous = CacheService.get(GlobalService.getAuthSettings().NAME_TOKEN_ANONYMOUS, this._cacheType);
+
+    var TOKEN_AUTH = this._tokenAuthAnonymous || this._tokenAuth;
+    if (!TOKEN_AUTH) {
       return {};
+    }
 
     if (this._enabledOldBack) {
       return {
@@ -324,7 +331,7 @@ export class ApiService<T> {
     }
     else {
       return {
-        'Authorization': "Bearer " + CacheService.get('TOKEN_AUTH', this._cacheType)
+        'Authorization': "Bearer " + TOKEN_AUTH
       }
     }
   }
