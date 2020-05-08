@@ -30,22 +30,7 @@ import { ViewModel } from '../model/viewmodel';
               <th width="1" class="text-center" *ngIf="showAction  && actionLeft"></th>
               <th *ngFor="let grid of _fields; let i=index" class="text-nowrap">
                   <span class="table-sort">
-                    <input *ngIf="grid.show.value && grid.type == 'string'" type='text' [(ngModel)]="vm.modelFilter[grid.fieldName]"  (change)="onFilter($event,grid.fieldName)" class="form-control form-control-sm"/>
-                    <input *ngIf="grid.show.value && grid.type == 'DateTime'" type='text' [(ngModel)]="vm.modelFilter[grid.fieldName]"  (change)="onFilter($event,grid.fieldName)" datepicker class="form-control form-control-sm"/>
-                    <input *ngIf="grid.show.value && grid.type == 'DateTime?'" type='text' [(ngModel)]="vm.modelFilter[grid.fieldName]"  (change)="onFilter($event,grid.fieldName)" datepicker class="form-control form-control-sm"/>
-                    <input *ngIf="grid.show.value && grid.type == 'int?' && !grid.navigationProp" type='text' [(ngModel)]="vm.modelFilter[grid.fieldName]"  (change)="onFilter($event,grid.fieldName)" class="form-control form-control-sm"/>
-                    <input *ngIf="grid.show.value && grid.type == 'int' && !grid.navigationProp" type='text' [(ngModel)]="vm.modelFilter[grid.fieldName]"  (change)="onFilter($event,grid.fieldName)" class="form-control form-control-sm"/>
-
-                    <input *ngIf="grid.show.value && grid.type == 'decimal?' && !grid.navigationProp" type='text' [(ngModel)]="vm.modelFilter[grid.fieldName]"  (change)="onFilter($event,grid.fieldName)" class="form-control form-control-sm" [textMask]='{ mask: vm.masks.maskDecimal }'/>
-                    <input *ngIf="grid.show.value && grid.type == 'decimal' && !grid.navigationProp" type='text' [(ngModel)]="vm.modelFilter[grid.fieldName]"  (change)="onFilter($event,grid.fieldName)" class="form-control form-control-sm" [textMask]='{ mask: vm.masks.maskDecimal }'/>
-
-                    <select *ngIf="grid.show.value && grid.navigationProp && grid.show.pagination" class='form-control' [(ngModel)]="vm.modelFilter[grid.fieldName]" datasource [dataitem]="grid.navigationProp" [fieldFilterName]="'Name'" (change)="onFilter($event,grid.fieldName)" class="form-control form-control-sm" [filterBehavior]="'GetDataListCustomPaging'"></select>
-                    <select *ngIf="grid.show.value && grid.navigationProp && !grid.show.pagination" class='form-control' [(ngModel)]="vm.modelFilter[grid.fieldName]" datasource [dataitem]="grid.navigationProp" [fieldFilterName]="'Name'" (change)="onFilter($event,grid.fieldName)" class="form-control form-control-sm"></select>
-
-                    <select *ngIf="grid.show.value && grid.type == 'dataitem'" class="form-control form-control-sm" [(ngModel)]="vm.modelFilter[grid.fieldName]" (change)="onFilter($event,grid.fieldName)" datasourceaux [dataitem]="grid.fieldName" [dataAux]="grid.aux" class="form-control form-control-sm"></select>
-                    <select *ngIf="grid.show.value && grid.type == 'bool'"class="form-control form-control-sm" [(ngModel)]="vm.modelFilter[grid.fieldName]" (change)="onFilter($event,grid.fieldName)" datasourceaux [dataitem]="grid.fieldName" [dataAux]="[{ id: 'false', name: 'Não' }, { id: 'true', name: 'Sim' }]" ></select>
-                    <select *ngIf="grid.show.value && grid.type == 'bool?'"class="form-control form-control-sm" [(ngModel)]="vm.modelFilter[grid.fieldName]" (change)="onFilter($event,grid.fieldName)" datasourceaux [dataitem]="grid.fieldName" [dataAux]="[{ id: 'false', name: 'Não' }, { id: 'true', name: 'Sim' }]" ></select>
-
+                    <grid-filter [(vm)]="vm" [(show)]="grid.show.value" [(navigationProp)]="grid.navigationProp" [(pagination)]="grid.show.pagination" [(type)]="grid.type" [(aux)]="grid.aux" [(fieldName)]="grid.fieldName" (filter)="onFilter($event,grid.fieldName)" ></grid-filter>
                   </span>
               </th>
               <th width="1" class="text-center" *ngIf="showAction  && !actionLeft"></th>
@@ -108,7 +93,8 @@ import { ViewModel } from '../model/viewmodel';
 
             </tr>
           </tbody>
-        </table>`
+        </table>
+  </div>`
 })
 export class MakeGridComponent implements OnChanges {
 
@@ -381,8 +367,8 @@ export class MakeGridComponent implements OnChanges {
       asc: this._isAsc
     });
   }
+
   onFilter(evt: any, field: any) {
     this.filter.emit(this.vm.modelFilter);
-    console.log(field, this.vm.modelFilter);
   }
 }

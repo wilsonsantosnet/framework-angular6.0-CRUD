@@ -29,7 +29,7 @@ import { Subscription } from 'rxjs';
           <hr *ngIf='fileName && enableCopyLink'>
           <img *ngIf='fileName && isImage' src='{{downloadUri}}{{folder}}/{{fileName}}' style='max-width:100%'  />
           <hr *ngIf='fileName && isImage'>
-          <div ng-show='pasteArea' class='upload-component-paste-area upload-component-drop-area mt-2' id='upload-component-paste-area'>
+          <div *ngIf='pasteArea' class='upload-component-paste-area upload-component-drop-area mt-2' id='upload-component-paste-area'>
           <p class='muted'>{{pasteAreaText}}<p>
           </div>
       </section>
@@ -208,7 +208,6 @@ export class UploadCustomComponent implements OnInit, OnDestroy {
     this.vm.model[this.ctrlName] = null;
     this.fileName = null;
     this.fileNameOld = null;
-    this.pasteArea = true;
   }
 
   ngOnChanges() {

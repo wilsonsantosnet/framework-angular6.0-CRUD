@@ -16,6 +16,8 @@ import { DateDirective } from './directives/date.directive';
 import { DateTimeDirective } from './directives/date.time.directive';
 import { BindCustomComponent } from './components/bind-custom.component';
 import { MakeGridComponent } from './components/grid.component'
+import { GridFilterComponent } from './components/grid-filter.component'
+
 import { CepComponent } from '../common/components/cep.component';
 import { TreeViewComponent } from '../common/components/tree-view.component';
 import { NestabaleTreeComponent } from '../common/components/nestable-tree.component';
@@ -74,6 +76,7 @@ import { NavigationPropertyPipe } from './pipes/navigation-property.pipe';
     EditorHtmlDiretive,
     DomElemetAppendDirective,
     MakeGridComponent,
+    GridFilterComponent,
     CepComponent,
     TreeViewComponent,
     NestabaleTreeComponent,
@@ -104,6 +107,7 @@ import { NavigationPropertyPipe } from './pipes/navigation-property.pipe';
     MakePaginationComponent,
     CpfCnpjComponent,
     MakeGridComponent,
+    GridFilterComponent,
     CepComponent,
     CepDirective,
     TreeViewComponent,
