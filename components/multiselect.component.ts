@@ -36,6 +36,7 @@ export class MultiSelectComponent implements OnInit, OnDestroy {
   @Input() enabledSelect2: boolean;
   @Input() fieldFilterName: any;
   @Input() filterBehavior: string;
+  @Input() configCustom: any;
 
   _datasource: any[];
   _modelOutput: any;
@@ -184,8 +185,17 @@ export class MultiSelectComponent implements OnInit, OnDestroy {
 
   private getInstanceMultiSelect2(filters: any) {
 
-    let config = {
-      ajax: this.api.setResource(this.dataitem, this.endpoint).getUrlConfig(true, this.fieldFilterName, this.filterBehavior, filters)
+    let config = {};
+    if (!this.configCustom) {
+      config = {
+        ajax: this.api.setResource(this.dataitem, this.endpoint).getUrlConfig(true, this.fieldFilterName, this.filterBehavior, filters)
+      }
+    }
+
+    if (this.configCustom) {
+      config = {
+        ajax: this.configCustom
+      }
     }
 
     setTimeout(() => {
