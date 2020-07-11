@@ -46,7 +46,7 @@ export class EditorHtmlDiretive implements OnInit {
 
         tinymce.init({
             selector: '[editorhtml=' + element.attr("editorhtml") + ']',
-            plugins: ['link', 'paste', 'lists', 'advlist'],
+            plugins: ['link', 'paste', 'lists', 'advlist', 'code', 'image', 'fullscreen'],
             skin_url: '/assets/css/skins/lightgray',
             setup: (editor : any) => {
                 editor.on('change', () => {
