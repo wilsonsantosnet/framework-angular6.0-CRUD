@@ -47,7 +47,7 @@ import { ListValueComponent } from './components/list-value.component';
 import { ListSimpleComponent } from './components/list-simple.component';
 import { ListFilteredComponent } from './components/list-filtered.component';
 import { NavigationPropertyPipe } from './pipes/navigation-property.pipe';
-
+import { MakeGridOrderComponent } from './components/grid-order.component';
 
 
 @NgModule({
@@ -99,6 +99,7 @@ import { NavigationPropertyPipe } from './pipes/navigation-property.pipe';
     ListSimpleComponent,
     ListFilteredComponent,
     NavigationPropertyPipe,
+    MakeGridOrderComponent
   ],
   providers: [
   ],
@@ -142,7 +143,8 @@ import { NavigationPropertyPipe } from './pipes/navigation-property.pipe';
     ExistsRequestPipe,
     ContainsPipe,
     TraductionPipe,
-    isAuthPipe
+    isAuthPipe,
+    MakeGridOrderComponent
   ]
 })
 export class CommonSharedModule {
