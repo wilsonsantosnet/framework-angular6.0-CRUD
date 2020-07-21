@@ -4,7 +4,9 @@ import { CacheService } from '../../common/services/cache.service';
 import { ECacheType } from '../../common/type-cache.enum';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ViewRef } from '@angular/core';
+import { Injectable } from "@angular/core";
 
+@Injectable()
 export class ServiceBase {
 
 
@@ -20,7 +22,7 @@ export class ServiceBase {
     return list;
   }
 
-  protected objectToArray(infos: any) {
+  public objectToArray(infos: any) {
 
     var list = [];
     for (let key in infos) {
@@ -32,7 +34,7 @@ export class ServiceBase {
     return list;
   }
 
-  protected objectToArrayWithKeys(infos: any) {
+  public objectToArrayWithKeys(infos: any) {
 
     var list = [];
     for (let key in infos) {
