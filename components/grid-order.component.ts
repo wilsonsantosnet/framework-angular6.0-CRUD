@@ -83,13 +83,13 @@ export class MakeGridOrderComponent implements OnInit, OnChanges {
       this.resourceOrder = this.vm.key;
 
     if (!this.fieldNameDisplay)
-      this.fieldNameDisplay = "nome";
+      this.fieldNameDisplay = "name";
 
     if (!this.fieldNameId)
       this.fieldNameId = this.servicebase.objectToArrayWithKeys(this.vm.infos).filter((item) => { return item.infos.isKey; })[0].key ;
 
     if (!this.fieldNameOrder)
-      this.fieldNameOrder = "ordem";
+      this.fieldNameOrder = "order";
 
   }
 
