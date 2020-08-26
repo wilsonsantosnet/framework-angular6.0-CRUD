@@ -19,11 +19,11 @@ import { ApiService } from '../services/api.service';
                  [showDetails]="showDetails"
                  [showEdit]="showEdit">
             </make-grid>
-            <nestabale-tree *ngIf="!viewgrid && nestableData && vm.filterResult"
-              (change)="onChangeNestabale($event)"
+            <nestable-tree *ngIf="!viewgrid && nestableData && vm.filterResult"
+              (change)="onChangeNestable($event)"
               [data]="nestableData"
               [id]="content-nestable">
-            </nestabale-tree>
+            </nestable-tree>
             <div class='col text-right mt-3'>
               <button *ngIf="savePending" (click)='onSaveOrder()' class='btn btn-success' title='Salvar Ordernação'><i class='fa fa-check'></i></button>
               <button (click)='onChangeView()' class='btn btn-warning' title='Trocar Visão'><i class='fa fa-tasks'></i></button>
@@ -138,7 +138,7 @@ export class MakeGridOrderComponent implements OnInit, OnChanges {
     this.filter.emit(modelFilter);
   }
 
-  onChangeNestabale(e) {
+  onChangeNestable(e) {
     this.change.emit(e);
     this.savePending = true;
     this.itensPending = e;
