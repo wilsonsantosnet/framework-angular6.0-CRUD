@@ -5,7 +5,7 @@ declare var $: any;
 @Component({
   selector: 'nestable-tree',
   template: `
-    <div class="dd" [id]="id" [nestable]="data" (change)="onChangeNestabale($event)">
+    <div class="dd" [id]="id" [nestable]="data" (change)="onChangeNestable($event)">
       <ol class="dd-list root" >
       </ol>
     </div>`
@@ -30,7 +30,7 @@ export class NestabaleTreeComponent implements OnInit, OnChanges {
     
   }
 
-  onChangeNestabale(e) {
+  onChangeNestable(e) {
     this.change.emit(e);
   }
 }
