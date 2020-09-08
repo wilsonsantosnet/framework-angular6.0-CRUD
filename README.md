@@ -9,7 +9,7 @@ Framework  Angular 8.0 para desenvolvimento de sistemas SPA, aqui temos uma sér
 5. Select
 6. multiselect
 
-Alem de abstrações que encapsulam  cookies , Storage , HttpClient, pipes, Editores de texto  etc, nem todos  são componentes que eu criei, alguns eu paneas encapsulei uma serie de componentes  feitos em jquery em uma componente angular que gerencia o mesmo.
+Alem de abstrações que encapsulam  cookies , Storage , HttpClient, pipes, Editores de texto  etc. Nem todos são componentes que eu criei do zero, alguns eu apenas encapsulei  componentes feitos em jquery em uma componente angular que o gerencia e expoem uma inteface que siplica ou extende a utilização.
 
 
 # GRID
