@@ -9,7 +9,7 @@ Framework  Angular 8.0 para desenvolvimento de sistemas de backooffice, aqui tem
 5. Select
 6. multiselect
 
-Alem de abstrações que encapsulam  cookies , Storage , HttpClient  etc
+Alem de abstrações que encapsulam  cookies , Storage , HttpClient, pipes, Editores de texto  etc, nem todos  são componentes que eu criei, alguns eu paneas encapsulei uma serie de componentes  feitos em jquery em uma componente angular que gerencia o mesmo.
 
 
 # GRID
