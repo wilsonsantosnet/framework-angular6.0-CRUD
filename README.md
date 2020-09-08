@@ -1,6 +1,15 @@
 # Framework  Angular 6.0  CRUD
 
-Framework  Angular 2.0 para desenvolvimento de sistemas de backooffice
+Framework  Angular 8.0 para desenvolvimento de sistemas de backooffice, aqui temos uma série de componetes comuns para um backoffice taus como 
+1. Grids 
+2. Filtros
+3. Ordernadores
+4. Upload
+5. Select
+6. multiselect
+
+Alem de abstrações encapsulam  cookies , Storage , HttpClient  etc
+
 
 # GRID
 
