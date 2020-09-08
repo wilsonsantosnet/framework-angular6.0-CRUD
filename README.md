@@ -1,4 +1,4 @@
-# Framework  Angular 6.0  CRUD
+# Framework  Angular
 
 Framework  Angular 8.0 para desenvolvimento de sistemas SPA, aqui temos uma série de componetes comuns para o dia a dia tais como ;
 
