@@ -3,6 +3,7 @@ import { GlobalService, NotificationParameters } from "../../global.service";
 import { ApiService } from "../../common/services/api.service";
 import { ViewModel } from '../model/viewmodel';
 import { Subscription } from 'rxjs';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'upload-custom',
@@ -51,6 +52,7 @@ export class UploadCustomComponent implements OnInit, OnDestroy {
   @Input() pasteArea: boolean;
   @Input() pasteAreaText: string;
   @Input() enableCopyLink: boolean;
+  @Input() maxsize: number;
 
   fileName: string;
   fileNameOld: string;
@@ -58,10 +60,10 @@ export class UploadCustomComponent implements OnInit, OnDestroy {
   fileUri: string;
   isImage: boolean;
   className: string;
-  
+
   _notificationEmitter: Subscription;
 
-  constructor(private api: ApiService<any>, private ref: ChangeDetectorRef) {
+  constructor(private api: ApiService<any>, private notificationsService: NotificationsService, private ref: ChangeDetectorRef) {
 
     this.downloadUri = GlobalService.getEndPoints().DOWNLOAD;
     this.fileUri = this.downloadUri + this.folder + "/" + this.fileName;
@@ -72,7 +74,7 @@ export class UploadCustomComponent implements OnInit, OnDestroy {
     this.isImage = false;
     this.enableCopyLink = false;
     this.pasteAreaText = "Arraste e solte arquivos ou cole PrintScreens de telas";
-
+    this.maxsize = 2;
 
   }
 
@@ -96,11 +98,11 @@ export class UploadCustomComponent implements OnInit, OnDestroy {
     if (this.pasteArea) {
 
       let area = document.getElementById("upload-component-paste-area");
-      
+
       area.addEventListener("paste", (e) => this.handlePaste(e));
       area.ondragover = () => { this.className = 'upload-component-paste-area'; return false; };
       area.ondrop = (e) => { this.handleDrop(e) }
-      
+
     }
 
   }
@@ -136,6 +138,7 @@ export class UploadCustomComponent implements OnInit, OnDestroy {
 
     this.fileNameOld = file.name;
 
+
     if (this.enabledUploadExternal)
       this.uploadCustom(file, this.rename);
     else
@@ -154,6 +157,23 @@ export class UploadCustomComponent implements OnInit, OnDestroy {
 
     let file: File = event.target.files[0];
     this.fileNameOld = file.name;
+
+    if (this.maxsize) {
+      if (file.size > (this.maxsize * 1024 * 1000)) {
+        this.notificationsService.error(
+          'Atenção',
+          'A imagem é muito grande',
+          {
+            timeOut: 5000,
+            showProgressBar: true,
+            pauseOnHover: true,
+            clickToClose: false,
+          }
+        );
+        event.target.files = [];
+        return false;
+      }
+    }
 
     if (this.enabledUploadExternal)
       return this.uploadCustom(file, this.rename);
