@@ -166,7 +166,8 @@ export class ApiService<T> {
     var url = this._enabledOldBack ? urlMethod : urlMore;
     var filterNew = filters;
 
-    var processResultsDefault = function (result: any) {
+    var processResultsDefault = function (result: any, params) {
+
       let dataList = result.dataList.map((item: any) => {
         let data = {
           id: item.id,
@@ -175,6 +176,7 @@ export class ApiService<T> {
         return data;
       });
 
+
       if (labelInitial) {
         dataList.unshift({
           id: '',
@@ -182,9 +184,25 @@ export class ApiService<T> {
         });
       }
 
+
+      if (filterBehavior == "GetDataListCustomPaging") {
+
+        params.page = params.page || 1;
+
+        return {
+          results: dataList,
+          pagination: {
+            more: (params.page * result.summary.pageSize) < result.summary.total
+          }
+        };
+
+      }
+
       return {
-        results: dataList
+        results: dataList,
       };
+
+
     };
 
     if (processResultsCustom)
@@ -201,7 +219,8 @@ export class ApiService<T> {
         });
 
         filterComposite["ids"] = null;
-        filterComposite[filterFieldName] = params.term
+        filterComposite[filterFieldName] = params.term;
+        filterComposite.pageIndex = params.page || 1;
 
         return toQueryString(filterComposite);
 
