@@ -552,7 +552,7 @@ export class ApiService<T> {
   }
 
   private riseThrow(erros: any) {
-    return Observable.throw(erros);
+    return throwError(erros);
   }
 
 }
