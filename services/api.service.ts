@@ -1,4 +1,4 @@
-import { throwError as observableThrowError, Observable, Observer } from 'rxjs';
+import { throwError, Observable, Observer } from 'rxjs';
 import { finalize, map, filter, catchError, mergeMap, retry } from 'rxjs/operators';
 import { Http, RequestOptions, Response, Headers, URLSearchParams, ResponseContentType } from '@angular/http';
 import { Router } from '@angular/router';
