@@ -176,7 +176,7 @@ export class AuthService {
     this.reset();
 
     if (this._typeLogin == ETypeLogin.SSO) {
-      var authorizationUrl = GlobalService.getEndPoints().AUTH + 'account/logout?returnUrl=' + GlobalService.getEndPoints().APP + "/login";
+      var authorizationUrl = GlobalService.getEndPoints().AUTH + '/account/logout?returnUrl=' + GlobalService.getEndPoints().APP + "/login";
       window.location.href = authorizationUrl;
     }
     else {
