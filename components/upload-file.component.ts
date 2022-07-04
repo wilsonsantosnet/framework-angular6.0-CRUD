@@ -21,14 +21,14 @@ import { NotificationsService } from 'angular2-notifications';
           </div>
           <hr *ngIf='fileName && isImage'>
           <div class="input-group" *ngIf='enableCopyLink'>
-            <input *ngIf='fileName' type='text' id='{{fileName}}' value='{{downloadUri}}{{folder}}/{{fileName}}' class="form-control">
+            <input *ngIf='fileName' type='text' id='{{fileName}}' value='{{downloadUri}}/{{folder}}/{{fileName}}' class="form-control">
             <span class="btn-group">
               <button class='btn btn-secondary' [hidden]="!fileName" type='button' (click)='copyToClipboard(fileName)' style='width:100px'>Copy</button>
-              <a class='btn btn-secondary' *ngIf='fileName' href='{{downloadUri}}{{folder}}/{{fileName}}' target='_blank' style='width:100px'>Ver</a>
+              <a class='btn btn-secondary' *ngIf='fileName' href='{{downloadUri}}/{{folder}}/{{fileName}}' target='_blank' style='width:100px'>Ver</a>
             </span>
           </div>
           <hr *ngIf='fileName && enableCopyLink'>
-          <img *ngIf='fileName && isImage' src='{{downloadUri}}{{folder}}/{{fileName}}' style='max-width:100%'  />
+          <img *ngIf='fileName && isImage' src='{{downloadUri}}/{{folder}}/{{fileName}}' style='max-width:100%'  />
           <hr *ngIf='fileName && isImage'>
           <div *ngIf='pasteArea' class='upload-component-paste-area upload-component-drop-area mt-2' id='upload-component-paste-area'>
           <p class='muted'>{{pasteAreaText}}<p>
@@ -66,7 +66,7 @@ export class UploadCustomComponent implements OnInit, OnDestroy {
   constructor(private api: ApiService<any>, private notificationsService: NotificationsService, private ref: ChangeDetectorRef) {
 
     this.downloadUri = GlobalService.getEndPoints().DOWNLOAD;
-    this.fileUri = this.downloadUri + this.folder + "/" + this.fileName;
+    this.fileUri = this.downloadUri + "/" + this.folder + "/" + this.fileName;
     this.enabledUploadExternal = false;
     this.accept = "*.*";
     this.rename = true;
